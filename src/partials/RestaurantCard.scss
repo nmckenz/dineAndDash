@@ -1,0 +1,28 @@
+ul, li {
+    list-style:none;
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    width:80%;
+    margin: 0 auto;
+}
+
+.restaurantCards {
+    border: 1px solid red;
+    display:flex;
+    flex-wrap:wrap;
+    li {
+        width:calc((100% / 3) - 40px);
+        margin: 20px;
+    }
+    img {
+        width: 100%;
+    }
+}
