@@ -17,7 +17,7 @@ class RestaurantCard extends Component {
                     </div>
                     <div className="yelpStarsAndLogo">
                         <div className="starRating">
-                            <img src={require("./assets/stars" + this.props.singleRestaurant.rating + ".png")} alt="" />
+                            <a href={this.props.singleRestaurant.url}><img src={require("./assets/stars" + this.props.singleRestaurant.rating + ".png")} alt="" /></a>
                         </div>
                         <div className="yelpLogo">
                             <a href={this.props.singleRestaurant.url}><img src={require('./assets/yelpLogo.png')} alt="" /></a>
