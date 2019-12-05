@@ -21,23 +21,23 @@ class Header extends Component {
                     <div className="heroContent">
                         <h1>DINE AND DASH</h1>
                         <fieldset>
-                            <form onSubmit={this.props.searchFunction(this.state.userInput)}>
+                            <form onSubmit={() => {this.props.searchFunction(this.state.userInput)}}>
                                 <input type="text" onChange={this.handleChangeCityInput} placeholder="Enter a city" />
-                                <button type="submit"></button>
+                                <button type="submit">submit</button>
                             </form>
                         </fieldset>
                     </div>
                 </div>
                 <div className="restaurantRecommendation">
-                    <p>restaurant #1</p>
+                    {/* <p>restaurant #1</p> */}
                     <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/>
                 </div>
                 <div className="restaurantRecommendation">
-                    <p>restaurant #2</p>
+                    {/* <p>restaurant #2</p> */}
                     <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" />
                 </div>
                 <div className="restaurantRecommendation">
-                    <p>restaurant #3</p>
+                    {/* <p>restaurant #3</p> */}
                     <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" />
                 </div>
             </div>
