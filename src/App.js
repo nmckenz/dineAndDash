@@ -61,7 +61,7 @@ class App extends Component {
       method: 'GET',
       dataResponse: 'json'
     }).then((response) => {
-      console.log('citybikes respone', response);
+      console.log('citybikes response', response);
 
       this.setState({
         networks:response.data.networks
@@ -77,7 +77,7 @@ class App extends Component {
       method: 'GET',
       dataResponse: 'json'
     }).then((response) => {
-      console.log('citybikes respone', response);
+      console.log('citybikes response', response);
 
       this.setState({
         stations:response.data.network.stations
