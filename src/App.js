@@ -135,6 +135,9 @@ class App extends Component {
                 <RestaurantDetails
                   match={match}
                   bikeStations={this.state.stations}
+                  junoProxyUrl={this.state.junoProxyUrl}
+                  yelpUrl={this.state.yelpUrl}
+                  yelpApiKey={this.state.yelpApiKey}
                 />
               )
             }
