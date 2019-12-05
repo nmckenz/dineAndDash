@@ -46,6 +46,7 @@ class App extends Component {
         xmlToJSON: false
       }
     }).then((response) => {
+      console.log('yelp response',response);
       this.setState({
         restaurants: response.data.businesses
       })
@@ -60,6 +61,8 @@ class App extends Component {
       method: 'GET',
       dataResponse: 'json'
     }).then((response) => {
+      console.log('citybikes response', response);
+
       this.setState({
         networks:response.data.networks
       })
@@ -74,6 +77,8 @@ class App extends Component {
       method: 'GET',
       dataResponse: 'json'
     }).then((response) => {
+      console.log('citybikes response', response);
+
       this.setState({
         stations:response.data.network.stations
       })
@@ -86,7 +91,18 @@ class App extends Component {
         <Header
           searchFunction={this.searchYelp}
         />
-        {(this.state.restaurants.length > 0) ? <Route exact path="/" component={SearchResults}/> : null}
+        {(this.state.restaurants.length > 0) ?
+          <Route
+            exact path="/"
+            render={ () => {
+              return (
+                <SearchResults
+                  restaurants={this.state.restaurants}
+                />
+              )
+            } }
+          />
+          : null}
         <Route path ="/restaurant/:id" component={RestaurantDetails}/>
         <Footer/>
       </Router>
