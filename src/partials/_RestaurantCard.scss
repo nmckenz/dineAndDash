@@ -14,6 +14,10 @@ p {
     margin: 0 auto;
 }
 
+img {
+    width: 100%;
+}
+
 .restaurantCards ul {
     border: 1px solid red;
     display:flex;
@@ -21,8 +25,34 @@ p {
     li {
         width:calc((100% / 3) - 40px);
         margin: 20px;
+        border: 1px solid blue;
+        overflow:hidden;
+        background:white;
+        border:1px solid black;
+        border-radius:10px;
     }
-    img {
-        width: 100%;
+    li > img {
+        height:200px;
+        object-fit:cover;
+    }
+    .restaurantCardContent {
+        padding: 10px;
+    }
+    .yelpStarsAndLogo {
+        display:flex;
+        flex-wrap:wrap;
+        align-items:flex-end;
+    }
+    .starRating {
+        height:auto;
+        width: 50%;
+    }
+    .yelpLogo {
+        display:inline-block;
+        width: 50%;
+        text-align:right;
+    }
+    .yelpLogo img {
+        width: 80px;
     }
 }
