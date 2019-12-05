@@ -1,5 +1,34 @@
 .detailsContent {
+  h2 {
+    font-size: 2rem;
+    
+  }
   display: flex;
+  flex-wrap: wrap;
+
+  .detailSub {
+    font-weight: 600;
+  }
 }
-body {
+
+.restaurantDetails {
+  width: 100%;
+
+  h2 {
+    text-align: center;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+
+.restaurantDetails,
+.bikeDetails {
+  // width:50%;
+}
+
+.bikeDetails {
+  margin-right: 0px;
 }
