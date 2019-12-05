@@ -1,5 +1,11 @@
 .detailsContent {
   display: flex;
+  flex-wrap: wrap;
+
 }
-body {
+
+.restaurantDetails,
+.bikeDetails {
+  width:calc((100% / 2) - 40px);
+  margin: 20px;
 }
