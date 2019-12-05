@@ -16,7 +16,6 @@ class RestaurantDetails extends Component {
 
 
     render() {
-        console.log(this);
         return (
             <div className="wrapper">
                 <div className="detailsContent">
@@ -32,6 +31,7 @@ class RestaurantDetails extends Component {
                         <h2>Bikes Near You</h2>
                         <div className="bikeInfo">
                             <h3>placeholder text (bike share toronto)</h3>
+                            <p>Bikes Avaiable:</p>
                         </div>
                     </div>
                 </div>
