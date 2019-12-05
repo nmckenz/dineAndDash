@@ -16,14 +16,15 @@ class App extends Component {
     this.state = {
       restaurants: ['hi'],
       networks: [],
-      stations: []
+      stations: [],
+      yelpUrl: `https://api.yelp.com/v3/businesses`,
+      yelpApiKey: `60l886Qycs9h_wC5Mg_GEdfIBdfzJ2oCL6-lPQcImfh57gu4W9udYJSt1QUdGFM-QXkwGEyNjJvkGAChBIT-4uupi7xVjjOucGT8XXXbirONqLZmbjC01vE4-BvnXXYx`,
+      cityBikesUrl: `http://api.citybik.es/v2/networks`
     }
   }
 
   searchYelp = (searchLocation, sortBy='distance') => {
     // Axios call for yelp data, uses Juno proxy
-    const yelpUrl = `https://api.yelp.com/v3/businesses/search`;
-    const yelpApiKey = `60l886Qycs9h_wC5Mg_GEdfIBdfzJ2oCL6-lPQcImfh57gu4W9udYJSt1QUdGFM-QXkwGEyNjJvkGAChBIT-4uupi7xVjjOucGT8XXXbirONqLZmbjC01vE4-BvnXXYx`;
     axios({
       url: 'https://proxy.hackeryou.com',
       method:'GET',
@@ -35,9 +36,9 @@ class App extends Component {
         return Qs.stringify(params, {arrayFormat: 'brackets'})
       },
       params: {
-        reqUrl: yelpUrl,
+        reqUrl: `${this.state.yelpUrl}/search`,
         proxyHeaders: {
-          'Authorization': `Bearer ${yelpApiKey}`
+          'Authorization': `Bearer ${this.state.yelpApiKey}`
         },
         params: {
           location: searchLocation,
@@ -55,9 +56,8 @@ class App extends Component {
 
   // Performs an axios call to get all bike networks available on citybikes and store it in state
   getAllBikeNetworks = () => {
-    const cityBikesUrl = `http://api.citybik.es/v2/networks/`;
     axios({
-      url: cityBikesUrl,
+      url: this.state.cityBikesUrl,
       method: 'GET',
       dataResponse: 'json'
     }).then((response) => {
@@ -71,9 +71,8 @@ class App extends Component {
 
   // Given an endpoint, does an axios call to get all stations within that network
   getSpecificBikeNetwork = (networkEndpoint) => {
-    const cityBikesUrl = `http://api.citybik.es/v2/networks/`;
     axios({
-      url: cityBikesUrl+networkEndpoint,
+      url: `${this.state.cityBikesUrl}/${networkEndpoint}`,
       method: 'GET',
       dataResponse: 'json'
     }).then((response) => {
