@@ -3,8 +3,7 @@ import './App.scss';
 import axios from 'axios';
 import Qs from 'qs';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Header from './Header.js';
-import SearchResults from './SearchResults.js';
+import Home from './Home';
 import RestaurantDetails from './RestaurantDetails';
 import Footer from './Footer.js';
 
@@ -112,21 +111,12 @@ class App extends Component {
   render(){
     return(
       <Router>
-        <Header
-          searchFunction={this.searchYelp}
+        {/* Home */}
+        <Route
+          exact path="/"
+          render = {() => <Home searchFunction={this.searchYelp} restaurants={this.state.restaurants} />}
         />
-        {(this.state.restaurants.length > 0) ?
-          <Route
-            exact path="/"
-            render={ () => {
-              return (
-                <SearchResults
-                  restaurants={this.state.restaurants}
-                />
-              )
-            } }
-          />
-          : null}
+        {/* Restaurant details */}
         <Route
           path ="/restaurant/:id"
           // Pass down the "match" object as a prop, as well a the bikestations array
