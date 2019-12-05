@@ -21,7 +21,11 @@ class Header extends Component {
                     <div className="heroContent">
                         <h1>DINE AND DASH</h1>
                         <fieldset>
-                            <form onSubmit={() => {this.props.searchFunction(this.state.userInput)}}>
+                            <form onSubmit={(event) => {
+                                event.preventDefault();
+                                this.props.searchFunction(this.state.userInput)
+                            }
+                            }>
                                 <input type="text" onChange={this.handleChangeCityInput} placeholder="Enter a city" />
                                 <button type="submit">submit</button>
                             </form>
