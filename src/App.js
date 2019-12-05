@@ -114,16 +114,7 @@ class App extends Component {
         {/* Home */}
         <Route
           exact path="/"
-          render={
-            () => {
-              return(
-                <Home
-                  searchFunction={this.searchYelp}
-                  restaurants={this.state.restaurants}
-                />
-              )
-            }
-          }
+          render = {() => <Home searchFunction={this.searchYelp} restaurants={this.state.restaurants} />}
         />
         {/* Restaurant details */}
         <Route
