@@ -10,6 +10,8 @@ import Footer from './Footer.js';
 
 class App extends Component {
   componentDidMount(){
+    // Grab bicycle network information at page load, as we will need this later
+    this.getAllBikeNetworks();
   }
   constructor(){
     super()
