@@ -28,6 +28,9 @@ class App extends Component {
       url: 'https://proxy.hackeryou.com',
       method:'GET',
       dataResponse: 'json',
+      // paramSerializer included at the advice of:
+      // https://github.com/HackerYou/bootcamp-notes/blob/master/applied-javascript/fetching-data-with-something-other-than%24.ajax.md#specifying-query-parameters-with-a-proxy-server
+      // to match the requirements for the Juno proxy.
       paramsSerializer: function(params) {
         return Qs.stringify(params, {arrayFormat: 'brackets'})
       },
@@ -45,6 +48,34 @@ class App extends Component {
     }).then((response) => {
       this.setState({
         restaurants: response.data.businesses
+      })
+    })
+  }
+
+  // Performs an axios call to get all bike networks available on citybikes and store it in state
+  getAllBikeNetworks = () => {
+    const cityBikesUrl = `http://api.citybik.es/v2/networks/`;
+    axios({
+      url: cityBikesUrl,
+      method: 'GET',
+      dataResponse: 'json'
+    }).then((response) => {
+      this.setState({
+        networks:response.data.networks
+      })
+    })
+  }
+
+  // Given an endpoint, does an axios call to get all stations within that network
+  getSpecificBikeNetwork = (networkEndpoint) => {
+    const cityBikesUrl = `http://api.citybik.es/v2/networks/`;
+    axios({
+      url: cityBikesUrl+networkEndpoint,
+      method: 'GET',
+      dataResponse: 'json'
+    }).then((response) => {
+      this.setState({
+        stations:response.data.network.stations
       })
     })
   }
