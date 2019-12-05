@@ -6,6 +6,10 @@
 
 .restaurantDetails,
 .bikeDetails {
-  width:calc((100% / 2) - 40px);
-  margin: 20px;
+  width:calc((100% / 2) - 20px);
+  margin-right: 20px;
+}
+
+.bikeDetails {
+  margin-right: 0px;
 }
