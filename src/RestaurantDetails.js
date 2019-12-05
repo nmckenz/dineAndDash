@@ -21,12 +21,12 @@ class RestaurantDetails extends Component {
                 <div className="detailsContent">
                     <div className="restaurantDetails">
                         <h2>Restaurant Title</h2>
-                        <img src="https://via.placeholder.com/150" alt="" />
-                        <p>Hours</p>
+                        <img src="https://via.placeholder.com/300" alt="" />
+                        <p className="detailSub">Hours</p>
 
-                        <p>rating:{}</p>
-                        <p>cuisineType{}</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga voluptatum cupiditate modi asperiores sequi at distinctio. Nulla tempore dolores quis assumenda earum ea, animi delectus aliquam dicta soluta voluptate dolore sed eos minus, cumque vel ex suscipit quae officia velit temporibus amet. Animi aspernatur sequi maiores optio impedit quasi alias.</p>
+                        <p className="detailSub">Rating:{}</p>
+                        <p className="detailSub">cuisineType{}</p>
+                        <p>review</p>
                     </div>
                     <div className="bikeDetails">
                         <img src="https://via.placeholder.com/300" alt=""/>
