@@ -24,7 +24,6 @@ class RestaurantDetails extends Component {
                         <img src="https://via.placeholder.com/300" alt=""/>
                         <h2>Bikes Near You</h2>
                         <div className="bikeInfo">
-                            
                         </div>
                     </div>
                 </div>
