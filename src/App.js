@@ -21,14 +21,15 @@ class App extends Component {
       stations: [],
       yelpUrl: `https://api.yelp.com/v3/businesses`,
       yelpApiKey: `60l886Qycs9h_wC5Mg_GEdfIBdfzJ2oCL6-lPQcImfh57gu4W9udYJSt1QUdGFM-QXkwGEyNjJvkGAChBIT-4uupi7xVjjOucGT8XXXbirONqLZmbjC01vE4-BvnXXYx`,
-      cityBikesUrl: `http://api.citybik.es/v2/networks`
+      cityBikesUrl: `http://api.citybik.es/v2/networks`,
+      junoProxyUrl: `https://proxy.hackeryou.com`
     }
   }
 
   searchYelp = (searchLocation, sortBy='distance') => {
     // Axios call for yelp data, uses Juno proxy
     axios({
-      url: 'https://proxy.hackeryou.com',
+      url: this.state.junoProxyUrl,
       method:'GET',
       dataResponse: 'json',
       // paramSerializer included at the advice of:
