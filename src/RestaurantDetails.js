@@ -24,6 +24,7 @@ class RestaurantDetails extends Component {
                         <img src="https://via.placeholder.com/150" alt="" />
                         <p>rating:{}</p>
                         <p>cuisineType{}</p>
+                        <p></p>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga voluptatum cupiditate modi asperiores sequi at distinctio. Nulla tempore dolores quis assumenda earum ea, animi delectus aliquam dicta soluta voluptate dolore sed eos minus, cumque vel ex suscipit quae officia velit temporibus amet. Animi aspernatur sequi maiores optio impedit quasi alias.</p>
                     </div>
                     <div className="bikeDetails">
