@@ -13,10 +13,24 @@
 
 .heroContent {
     background: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    width: 50%;
     position: absolute;
     top: 40%;
-    left: 40%;
-    text-align: center;
+    left: 25%;
+}
+
+.heroContent input {
+    width: 65%;
+    height: 40px;
+    padding: 5px 15px;
+}
+
+.heroContent button {
+    text-transform: uppercase;
+    width: 30%;
+    height: 40px;
+    margin-left: 15px;
 }
 
 .restaurantRecommendation {
