@@ -15,7 +15,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      restaurants: ['hi'],
+      restaurants: [],
       networks: [],
       stations: [],
       yelpUrl: `https://api.yelp.com/v3/businesses`,
