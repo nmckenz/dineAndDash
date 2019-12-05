@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './partials/_RestaurantDetails.scss'
 
 
 class RestaurantDetails extends Component {

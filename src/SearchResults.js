@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import RestaurantCard from './RestaurantCard.js'
-import './partials/RestaurantCard.scss'
 
 class SearchResults extends Component {
     render() {
