@@ -59,6 +59,9 @@ class RestaurantDetails extends Component {
                 })
             })
         })
+
+
+        // importing mapbox image + functionalities
         const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
         mapboxgl.accessToken = 'pk.eyJ1IjoicGllcmNlbW9yYWxlcyIsImEiOiJjazN1YjAydTkwNmRvM2xtZWo3ZXI5cm44In0.mP0xBue4E9m2CEpDI-oQBA';
@@ -66,6 +69,45 @@ class RestaurantDetails extends Component {
             container: 'mapContent',
             style: 'mapbox://styles/mapbox/streets-v11'
         });
+        map.on("load", function() {
+        map.loadImage(
+            "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
+            function(error, image) {
+                if (error) throw error;
+                map.addImage("cat", image);
+                map.addLayer({
+                id: "points",
+                type: "symbol",
+                source: {
+                    type: "geojson",
+                    data: {
+                    type: "FeatureCollection",
+                    features: [
+                        {
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [0, 0]
+                        }
+                        }
+                    ]
+                    }
+                },
+                layout: {
+                    "icon-image": "cat",
+                    "icon-size": 0.25
+                }
+                });
+            }
+        );
+            });
+
+
+
+
+
+
+    //componentDidMount ends
     }
 
     parse24HClock = (time) => {
