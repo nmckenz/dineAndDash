@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 class Header extends Component {
     constructor() {
@@ -24,6 +25,8 @@ class Header extends Component {
                             <form onSubmit={(event) => {
                                     event.preventDefault();
                                     this.props.searchFunction(this.state.userInput)
+                                    const headerRect = ReactDOM.findDOMNode(this).getBoundingClientRect()
+                                    window.scrollTo(0,headerRect.bottom)
                                 }
                                 }>
                                     <label htmlFor="searchInput" className="visuallyHidden">Enter a location</label>

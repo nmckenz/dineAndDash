@@ -4,15 +4,12 @@ import RestaurantCard from './RestaurantCard.js'
 
 class SearchResults extends Component {
     componentDidMount() {
-        window.scrollTo({
-            top: 600,
-            left: 0,
-            behavior: 'smooth'
-        });
+        const resultsSection = document.getElementById("searchResults");
+        resultsSection.scrollIntoView();
     }
     render() {
         return (
-            <section className="searchResults">
+            <section className="searchResults" id="searchResults">
                 <div className="wrapper">
                     <h2>Search Results</h2>
                     <ul>
