@@ -175,11 +175,12 @@ class RestaurantDetails extends Component {
                         <p className="detailSub">Rating: {this.state.restaurantDetails.rating}</p>
                         <p className="detailSub">Cuisine: {(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
                         <p className="detailSub">Reviews</p>
-                        {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((restaurantObject) => {
+                        {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
                             return (
-                                <blockquote cite={restaurantObject.url} key={restaurantObject.id}>
-                                    <p>{restaurantObject.text}</p>
-                                    <footer>- {restaurantObject.user.name}</footer>
+                                <blockquote cite={reviewObject.url} key={reviewObject.id}>
+                                    <p>{reviewObject.text} <span>Read more</span> on</p>
+                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer" className="detailsYelpLogo"><img src={require('./assets/yelpLogo.png')} alt="" /></a>
+                                    <footer>- {reviewObject.user.name}</footer>
                                 </blockquote>
                             )
                         }))

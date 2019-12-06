@@ -23,6 +23,18 @@
   }
 }
 
+.detailsYelpLogo {
+  display: inline-block;
+  width: 80px;
+}
+
+blockquote p {
+  display: inline;
+}
+
+blockquote p span {
+  text-transform: uppercase;
+}
 
 .restaurantDetails,
 .bikeDetails {
