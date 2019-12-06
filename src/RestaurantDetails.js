@@ -75,33 +75,38 @@ class RestaurantDetails extends Component {
             container: 'mapContent',
             style: 'mapbox://styles/mapbox/streets-v11'
         });
-        map.on('load', function() {
-        map.loadImage('./assets/mapbicycle.svg', function(error, image) {
-            if (error) throw error;
-            map.addImage('bike', image);
-            map.addLayer({
+        map.on("load", function() {
+        map.loadImage(
+            "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
+            function(error, image) {
+                if (error) throw error;
+                map.addImage("cat", image);
+                map.addLayer({
                 id: "points",
                 type: "symbol",
                 source: {
                     type: "geojson",
                     data: {
                     type: "FeatureCollection",
-                    features: [{
+                    features: [
+                        {
                         type: "Feature",
                         geometry: {
                             type: "Point",
                             coordinates: [0, 0]
-                            }
-                        }]
+                        }
+                        }
+                    ]
                     }
                 },
                 layout: {
                     "icon-image": "cat",
                     "icon-size": 0.25
                 }
+                });
+            }
+        );
             });
-        })
-    });
 
 
 
