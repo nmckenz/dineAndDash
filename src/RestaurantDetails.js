@@ -65,6 +65,13 @@ class RestaurantDetails extends Component {
                 })
             })
         })
+        const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoicGllcmNlbW9yYWxlcyIsImEiOiJjazN1YjAydTkwNmRvM2xtZWo3ZXI5cm44In0.mP0xBue4E9m2CEpDI-oQBA';
+        const map = new mapboxgl.Map({
+            container: 'mapContent',
+            style: 'mapbox://styles/mapbox/streets-v11'
+        });
     }
 
     // parseHours = (hoursArray) => {
@@ -103,7 +110,9 @@ class RestaurantDetails extends Component {
                         <h2>Bikes Near You</h2>
                         <div className="bikeInfo">
                             <h3>placeholder text (bike share toronto)</h3>
-                            <p>Bikes Avaiable:</p>
+                            <div id="mapContent" class="mapDetail">
+
+                            </div>
                         </div>
                     </div>
                 </div>
