@@ -55,25 +55,7 @@ class App extends Component {
 
       const yelpLocation = response.data.region.center;
 
-      const closestNetwork = {
-        bestId: "",
-        sqDistance: Infinity
-      };
-
-      this.state.networks.forEach((network, index) => {
-        // Square of the distance. Good enough for our purposes
-        const sqDistance = Math.abs(network.location.latitude - yelpLocation.latitude)**2 + Math.abs(network.location.longitude - yelpLocation.longitude)**2;
-
-        // If this distance is closer than the current best case, save it!
-        if (sqDistance < closestNetwork.sqDistance) {
-          closestNetwork.bestId = network.id;
-          closestNetwork.sqDistance = sqDistance;
-        }
-      });
-
-      if (closestNetwork.bestId !== "") {
-        this.getSpecificBikeNetwork(closestNetwork.bestId);
-      }
+      this.findClosestBikeNetwork(yelpLocation);
 
       this.setState({
         restaurants: response.data.businesses
@@ -82,17 +64,49 @@ class App extends Component {
   }
 
   // Performs an axios call to get all bike networks available on citybikes and store it in state
-  getAllBikeNetworks = () => {
-    axios({
-      url: this.state.cityBikesUrl,
-      method: 'GET',
-      dataResponse: 'json'
-    }).then((response) => {
-      console.log('citybikes response', response);
-      this.setState({
-        networks:response.data.networks
+  getAllBikeNetworks = (getCoords=null) => {
+    if (this.state.networks.length>0 && getCoords) {
+      this.findClosestBikeNetwork(getCoords);
+    }
+    else {
+      axios({
+        url: this.state.cityBikesUrl,
+        method: 'GET',
+        dataResponse: 'json'
+      }).then((response) => {
+        console.log('citybikes response', response);
+        this.setState({
+          networks:response.data.networks
+        }, () => {
+          // After setstate is done, if getCoords is defined, go immediately to finding the closest network
+          if (getCoords) {
+            this.findClosestBikeNetwork(getCoords);
+          }
+        });
       })
-    })
+    }
+  }
+
+  findClosestBikeNetwork = (coords) => {
+    const closestNetwork = {
+      bestId: "",
+      sqDistance: Infinity
+    };
+
+    this.state.networks.forEach((network) => {
+      // Square of the distance. Good enough for our purposes
+      const sqDistance = Math.abs(network.location.latitude - coords.latitude)**2 + Math.abs(network.location.longitude - coords.longitude)**2;
+
+      // If this distance is closer than the current best case, save it!
+      if (sqDistance < closestNetwork.sqDistance) {
+        closestNetwork.bestId = network.id;
+        closestNetwork.sqDistance = sqDistance;
+      }
+    });
+
+    if (closestNetwork.bestId !== "") {
+      this.getSpecificBikeNetwork(closestNetwork.bestId);
+    }
   }
 
   // Given an endpoint, does an axios call to get all stations within that network
@@ -130,6 +144,7 @@ class App extends Component {
                   junoProxyUrl={this.state.junoProxyUrl}
                   yelpUrl={this.state.yelpUrl}
                   yelpApiKey={this.state.yelpApiKey}
+                  bikesGetFunction={this.getAllBikeNetworks}
                 />
               )
             }
