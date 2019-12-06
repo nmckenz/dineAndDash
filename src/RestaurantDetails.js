@@ -8,7 +8,8 @@ class RestaurantDetails extends Component {
         super();
         this.state = {
             restaurantDetails: {},
-            restaurantReviews: []
+            restaurantReviews: [],
+            nearestBikeStation: -1
         };
     };
 
@@ -33,6 +34,10 @@ class RestaurantDetails extends Component {
                 xmlToJSON: false
             }
         }).then((result) => {
+            // Get the closest city bikes stations if they don't already exist
+            if (this.props.bikeStations.length===0) {
+                this.props.bikesGetFunction(result.data.coordinates);
+            }
             console.log("restaurant details yelp api result", result);
             this.setState({
                 restaurantDetails: result.data
@@ -126,8 +131,35 @@ class RestaurantDetails extends Component {
         return timeString;
     }
 
+    getNearestStation = () => {
+        // if all of the data is available to do the work...
+        if (this.state.nearestBikeStation < 0 && 'coordinates' in this.state.restaurantDetails && this.props.bikeStations.length >0) {
+
+            const coordinates = this.state.restaurantDetails.coordinates;
+
+            const bestStation = {
+                id: -1,
+                sqDistance: Infinity
+            }
+
+            this.props.bikeStations.forEach((station,index) => {
+                const sqDistance = (station.latitude - coordinates.latitude)**2 + (station.longitude - coordinates.longitude)**2;
+                if (station.free_bikes>0 && sqDistance < bestStation.sqDistance) {
+                    bestStation.id = index;
+                    bestStation.sqDistance = sqDistance;
+                }
+            });
+            if (bestStation.id >= 0) {
+                this.setState({
+                    nearestBikeStation: bestStation.id
+                })
+            }
+        }
+    }
+
     render() {
         console.log("state restaurant reviews", this.state.restaurantReviews)
+        this.getNearestStation();
         return (
             <div className="wrapper">
                 <div className="detailsContent">
@@ -188,6 +220,9 @@ class RestaurantDetails extends Component {
                     <div className="bikeDetails">
                         {/* <img src="https://via.placeholder.com/300" alt=""/> */}
                         <h2>Bikes Near You</h2>
+                        {(this.state.nearestBikeStation>=0) ?
+                            <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
+                            null}
                         <div className="bikeInfo">
                             <h3>placeholder text (bike share toronto)</h3>
                             <div id="mapContent" class="mapDetail">
