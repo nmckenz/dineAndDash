@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RestaurantCard from './RestaurantCard.js'
+import RestaurantCard from './RestaurantCard.js';
+import ReactDOM from 'react-dom';
 
 class SearchResults extends Component {
     componentDidMount() {
-        const resultsSection = document.getElementById("searchResults");
-        resultsSection.scrollIntoView();
+        const resultsRect = ReactDOM.findDOMNode(this).getBoundingClientRect()
+        window.scrollTo(0, resultsRect.top)
     }
     render() {
         return (
