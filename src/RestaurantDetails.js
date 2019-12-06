@@ -28,9 +28,6 @@ class RestaurantDetails extends Component {
                 proxyHeaders: {
                     'Authorization': `Bearer ${this.props.yelpApiKey}`
                 },
-                params: {
-
-                },
                 xmlToJSON: false
             }
         }).then((result) => {
@@ -53,9 +50,6 @@ class RestaurantDetails extends Component {
                     proxyHeaders: {
                         'Authorization': `Bearer ${this.props.yelpApiKey}`
                     },
-                    // params: {
-
-                    // },
                     xmlToJSON: false
                 }
             }).then((result) => {
@@ -74,78 +68,19 @@ class RestaurantDetails extends Component {
         });
     }
 
-    parseHours = (hoursArray) => {
-        let jsxReturn = ``;
-        parseMilitaryTime = (time) => {
-            const timeInterger = parseInt(time);
-            const amOrPm = (timeInterger >= 1200) ? 'PM' : 'AM';
-            let time12H;
-            if (timeInterger >= 1300) {
-                const hour = (parseInt((timeInterger - 1200)/100)).toString()
-                let minute = ((timeInterger - 1200) % 100) || '00'
-                if (minute < 10) {
-                    minute = '0' + minute.toString()
-                } else {
-                    minute = minute.toString()
-                }
-                time12H = `${hour}:${minute} ${amOrPm}`
-            } else if ()
+    parse24HClock = (time) => {
+        const timeArray = [...time];
+        let hours = timeArray[0] + timeArray[1];
+        let minutes = timeArray[2] + timeArray[3];
+        const amOrPm = (parseInt(hours) >= 12) ? 'PM' : 'AM';
+        if (parseInt(hours) > 12) {
+            hours = (hours - 12).toString();
+        } else if (timeArray[0] === "0") {
+            hours = timeArray[1];
         }
-        hoursArray.map((dayObject, index) => {
-            if (index === 0) {
-                jsxReturn += `<p>Monday: `
-            }
-        })
+        const timeString = `${hours}:${minutes} ${amOrPm}`;
+        return timeString;
     }
-
-    // const formatDate = function (date) {
-    //     const time = new Date(date);
-    //     const hh = time.getHours();
-    //     const mm = time.getMinutes();
-    //     let h = hh;
-    //     let dd = "AM";
-    //     let m = mm;
-    //     if (h >= 12) {
-    //         h = hh - 12;
-    //         dd = "PM";
-    //     }
-    //     if (h === 0) {
-    //         h = 12;
-    //     }
-    //     if (m < 10) {
-    //         m = "0" + mm;
-    //     }
-    //     return `${h}:${m} ${dd}`
-    // }
-
-//     let getStartTime = function () {
-//     // the objective of this function is to get an array of timein values that are typeof date (object)
-//     $allTimeInInputs.each((index) => {
-//         // use jQuery method .each() to create a function that will execute for each timein input
-//         let timeinString = $(`#timein${index + 1}`).val();
-//         // using jQuery method: .val()
-//         // get the value of each timein input
-//         // inputs return typeof string
-//         let timeinObject = timeinString.split(':');
-//         // remove the colons
-//         // this returns typeof object
-//         // note the values in each index are still typeof string
-//         let timeinHour = timeinObject[0];
-//         let timeinMinute = timeinObject[1];
-//         // assign each index to a variable
-//         let startingTime = new Date("1970-1-1 " + `${timeinHour}:${timeinMinute}`);
-//         // using JS method: new Date()
-//         // "convert" timein input with typeof string to typeof date (object)
-//         allStartingTimes = startingTime.getTime();
-//         // get all timein inputs with typeof date (object) using JS method: .getTime()
-//         workday.startTime.unshift(allStartingTimes);
-//         // using JS method: .unshift()
-//         // insert values from allStartingTimes to the beginning of our array: workday.startTime
-//         workday.startTime = workday.startTime.slice(0, 7);
-//         // using JS method: .slice()
-//         // extract indexes 0-6
-//     });
-// }
 
     render() {
         console.log("state restaurant reviews", this.state.restaurantReviews)
@@ -157,7 +92,40 @@ class RestaurantDetails extends Component {
                         <img src={(this.state.restaurantDetails.image_url === '') ? require('./assets/imagePlaceholder.jpg')
                             : this.state.restaurantDetails.image_url} alt="" />
                         <p className="detailSub">Hours: 
-                        {/* {(this.state.restaurantDetails.hours === undefined) ? null : (this.parseHours(this.state.restaurantDetails.hours[0].open))} */}
+                        {(this.state.restaurantDetails.hours === undefined) ? null : (
+                                this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
+                                    if (index === 0) {
+                                        return (
+                                            <p>Monday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                        )
+                                    } else if (index === 1) {
+                                        return (
+                                            <p>Tuesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                        )
+                                    } else if (index === 2) {
+                                        return (
+                                            <p>Wednesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                        )
+                                    } else if (index === 3) {
+                                        return (
+                                            <p>Thursday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                        )
+                                    } else if (index === 4) {
+                                        return (
+                                            <p>Friday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                        )
+                                    } else if (index === 5) {
+                                        return (
+                                            <p>Saturday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                        )
+                                    } else if (index === 6) {
+                                        return (
+                                            <p>Sunday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                        )
+                                    }
+                                })
+                            )
+                        }
                         </p>
 
                         <p className="detailSub">Rating: {this.state.restaurantDetails.rating}</p>
