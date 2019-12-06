@@ -67,13 +67,44 @@ class RestaurantDetails extends Component {
         })
     }
 
-    // parseHours = (hoursArray) => {
-    //     hoursArray.map((dayObject, index) => {
-    //         if (index === 0) {
+    parseHours = (hoursArray) => {
+        let jsxReturn = ``;
+        parseMilitaryTime = (time) => {
+            const timeInterger = parseInt(time);
+            const amOrPm = (timeInterger >= 1200) ? 'PM' : 'AM';
+            let time12H;
+            if (timeInterger > 1200) {
+                const hour = parseInt((timeInterger - 1200)/100)
+                const minute = 
+                time12H = 
+            }
+        }
+        hoursArray.map((dayObject, index) => {
+            if (index === 0) {
+                jsxReturn += `<p>Monday: `
+            }
+        })
+    }
 
-    //         }
-    //     })
-    // }
+    const formatDate = function (date) {
+        const time = new Date(date);
+        const hh = time.getHours();
+        const mm = time.getMinutes();
+        let h = hh;
+        let dd = "AM";
+        let m = mm;
+        if (h >= 12) {
+            h = hh - 12;
+            dd = "PM";
+        }
+        if (h === 0) {
+            h = 12;
+        }
+        if (m < 10) {
+            m = "0" + mm;
+        }
+        return `${h}:${m} ${dd}`
+    }
 
     render() {
         console.log("state restaurant reviews", this.state.restaurantReviews)
@@ -82,8 +113,9 @@ class RestaurantDetails extends Component {
                 <div className="detailsContent">
                     <div className="restaurantDetails">
                         <h2>{this.state.restaurantDetails.name}</h2>
-                        <img src={this.state.restaurantDetails.image_url} alt="" />
-                        <p className="detailSub">Hours</p>
+                        <img src={(this.state.restaurantDetails.image_url === '') ? require('./assets/imagePlaceholder.jpg')
+                            : this.state.restaurantDetails.image_url} alt="" />
+                        <p className="detailSub">Hours: {(this.state.restaurantDetails.hours === undefined) ? null : (this.parseHours(this.state.restaurantDetails.hours[0].open))}</p>
 
                         <p className="detailSub">Rating: {this.state.restaurantDetails.rating}</p>
                         <p className="detailSub">Cuisine: {(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
