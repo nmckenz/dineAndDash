@@ -16,7 +16,7 @@ class Header extends Component {
 
     render() {
         return (
-            <div>
+            <header>
                 <div className="hero">
                     <div className="heroContent">
                         <div className="innerBox">
@@ -33,19 +33,21 @@ class Header extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="restaurantRecommendation">
-                    {/* <p>restaurant #1</p> */}
-                    <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/>
+                <div className="recommendationContainer">
+                    <div className="restaurantRecommendation">
+                        {/* <p>restaurant #1</p> */}
+                        <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/>
+                    </div>
+                    <div className="restaurantRecommendation">
+                        {/* <p>restaurant #2</p> */}
+                        <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" />
+                    </div>
+                    <div className="restaurantRecommendation">
+                        {/* <p>restaurant #3</p> */}
+                        <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" />
+                    </div>
                 </div>
-                <div className="restaurantRecommendation">
-                    {/* <p>restaurant #2</p> */}
-                    <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" />
-                </div>
-                <div className="restaurantRecommendation">
-                    {/* <p>restaurant #3</p> */}
-                    <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" />
-                </div>
-            </div>
+            </header>
         )
     }
 }
