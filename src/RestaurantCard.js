@@ -19,10 +19,10 @@ class RestaurantCard extends Component {
                     </div>
                     <div className="yelpStarsAndLogo">
                         <div className="starRating">
-                            <a href={this.props.singleRestaurant.url}><img src={require("./assets/stars" + this.props.singleRestaurant.rating + ".png")} alt="" /></a>
+                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require("./assets/stars" + this.props.singleRestaurant.rating + ".png")} alt="" /></a>
                         </div>
                         <div className="yelpLogo">
-                            <a href={this.props.singleRestaurant.url}><img src={require('./assets/yelpLogo.png')} alt="" /></a>
+                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require('./assets/yelpLogo.png')} alt="" /></a>
                         </div>
                     </div>
                 </div>
