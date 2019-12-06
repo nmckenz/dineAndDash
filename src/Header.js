@@ -19,17 +19,18 @@ class Header extends Component {
             <div>
                 <div className="hero">
                     <div className="heroContent">
-                        <h1>DINE AND DASH</h1>
-                        <fieldset>
+                        <div className="innerBox">
+                            <h1>DINE AND DASH</h1>
                             <form onSubmit={(event) => {
-                                event.preventDefault();
-                                this.props.searchFunction(this.state.userInput)
-                            }
-                            }>
-                                <input type="text" onChange={this.handleChangeCityInput} placeholder="Enter a city" />
-                                <button type="submit">submit</button>
+                                    event.preventDefault();
+                                    this.props.searchFunction(this.state.userInput)
+                                }
+                                }>
+                                    <label htmlFor="searchInput" className="visuallyHidden">Enter a location</label>
+                                    <input type="text" name="searchInput" id="searchInput" onChange={this.handleChangeCityInput} placeholder="Enter a city" />
+                                    <button type="submit">submit</button>
                             </form>
-                        </fieldset>
+                        </div>
                     </div>
                 </div>
                 <div className="restaurantRecommendation">
