@@ -44,7 +44,9 @@ class App extends Component {
         },
         params: {
           location: searchLocation,
-          sort_by: sortBy
+          sort_by: sortBy,
+          limit: 24,
+          categories: "restaurants, All"
         },
         xmlToJSON: false
       }
