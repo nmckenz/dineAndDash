@@ -30,7 +30,7 @@ class Header extends Component {
                                 }
                                 }>
                                     <label htmlFor="searchInput" className="visuallyHidden">Enter a location</label>
-                                    <input type="text" name="searchInput" id="searchInput" onChange={this.handleChangeCityInput} placeholder="Enter a city" />
+                                    <input type="text" name="searchInput" id="searchInput" onChange={this.handleChangeCityInput} placeholder="Enter your location" />
                                     <button type="submit">submit</button>
                             </form>
                         </div>
