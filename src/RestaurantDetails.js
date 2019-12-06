@@ -13,6 +13,8 @@ class RestaurantDetails extends Component {
     };
 
     componentDidMount() {
+        window.scrollTo(0, 0);
+
         axios({
             url: this.props.junoProxyUrl,
             method: 'GET',

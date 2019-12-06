@@ -3,6 +3,13 @@ import axios from 'axios';
 import RestaurantCard from './RestaurantCard.js'
 
 class SearchResults extends Component {
+    componentDidMount() {
+        window.scrollTo({
+            top: 600,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
     render() {
         return (
             <section className="searchResults">
