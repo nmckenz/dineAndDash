@@ -68,41 +68,44 @@ class RestaurantDetails extends Component {
 
         mapboxgl.accessToken = 'pk.eyJ1IjoicGllcmNlbW9yYWxlcyIsImEiOiJjazN1YjAydTkwNmRvM2xtZWo3ZXI5cm44In0.mP0xBue4E9m2CEpDI-oQBA';
         const map = new mapboxgl.Map({
-            container: 'mapContent',
-            style: 'mapbox://styles/mapbox/streets-v11'
+            container: "mapContent",
+            style: "mapbox://styles/mapbox/streets-v11",
+        //   starting point in map
+        //   center: [-79.39, 43.64]
         });
         map.on("load", function() {
         map.loadImage(
             "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
             function(error, image) {
                 if (error) throw error;
-                map.addImage("cat", image);
+                map.addImage("bike", image);
                 map.addLayer({
-                id: "points",
-                type: "symbol",
-                source: {
-                    type: "geojson",
-                    data: {
-                    type: "FeatureCollection",
-                    features: [
-                        {
-                        type: "Feature",
-                        geometry: {
-                            type: "Point",
-                            coordinates: [0, 0]
+                    id: "points",
+                    type: "symbol",
+                    source: {
+                        type: "geojson",
+                        data: {
+                        type: "FeatureCollection",
+                        features: [
+                            {
+                            type: "Feature",
+                            geometry: {
+                                type: "Point",
+                                // run bike station lat,longitude here
+                                coordinates: [-79.39, 43.64]
+                            }
+                            }
+                        ]
                         }
-                        }
-                    ]
+                    },
+                    layout: {
+                    "icon-image": "bike",
+                    "icon-size": 0.1
                     }
-                },
-                layout: {
-                    "icon-image": "cat",
-                    "icon-size": 0.25
-                }
                 });
             }
         );
-            });
+    });
 
 
 
@@ -191,7 +194,7 @@ class RestaurantDetails extends Component {
                         <h2>Bikes Near You</h2>
                         <div className="bikeInfo">
                             <h3>placeholder text (bike share toronto)</h3>
-                            <div id="mapContent" class="mapDetail">
+                            <div id="mapContent" className="mapDetail">
 
                             </div>
                         </div>
