@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 class RestaurantCard extends Component {
     render() {
@@ -12,8 +13,9 @@ class RestaurantCard extends Component {
                     ? require('./assets/imagePlaceholder.jpg') 
                     : this.props.singleRestaurant.image_url} alt=""/>
                 <div className="restaurantCardContent">
-                	<div className="restaurantName">
+                    <div className="restaurantName">
                         <p>{this.props.singleRestaurant.name}</p>
+                        <Link to={`/restaurant/${this.props.singleRestaurant.id}`}>Click here for more details</Link>
                     </div>
                     <div className="yelpStarsAndLogo">
                         <div className="starRating">
