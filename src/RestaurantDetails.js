@@ -170,57 +170,88 @@ class RestaurantDetails extends Component {
                         <h2>{this.state.restaurantDetails.name}</h2>
                         <img src={(this.state.restaurantDetails.image_url === '') ? require('./assets/imagePlaceholder.jpg')
                             : this.state.restaurantDetails.image_url} alt="" />
-                        <p className="detailSub">Hours: 
-                        {(this.state.restaurantDetails.hours === undefined) ? null : (
-                                this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
-                                    if (dayObject.day === 0) {
-                                        return (
-                                            <p key={index}>Monday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                        )
-                                    } else if (dayObject.day === 1) {
-                                        return (
-                                            <p key={index}>Tuesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                        )
-                                    } else if (dayObject.day === 2) {
-                                        return (
-                                            <p key={index}>Wednesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                        )
-                                    } else if (dayObject.day === 3) {
-                                        return (
-                                            <p key={index}>Thursday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                        )
-                                    } else if (dayObject.day === 4) {
-                                        return (
-                                            <p key={index}>Friday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                        )
-                                    } else if (dayObject.day === 5) {
-                                        return (
-                                            <p key={index}>Saturday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                        )
-                                    } else if (dayObject.day === 6) {
-                                        return (
-                                            <p key={index}>Sunday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                        )
-                                    }
-                                })
-                            )
-                        }
-                        </p>
 
-                        <p className="detailSub">Rating: {this.state.restaurantDetails.rating}</p>
-                        <p className="detailSub">Cuisine: {(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
-                        <p className="detailSub">Reviews</p>
-                        {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
-                            return (
-                                <blockquote cite={reviewObject.url} key={reviewObject.id}>
-                                    <p>{reviewObject.text} <span>Read more</span> on</p>
-                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer" className="detailsYelpLogo"><img src={require('./assets/yelpLogo.png')} alt="" /></a>
-                                    <footer>- {reviewObject.user.name}</footer>
-                                </blockquote>
-                            )
-                        }))
-                        }
+                        <div className="restaurantContactInfo">
+                            <div className="flexContainerRestaurantDetails"><p className="detailSub">Address: </p> <div>{(this.state.restaurantDetails.location === undefined) ? null : this.state.restaurantDetails.location.display_address.map((addressLine, index) => {
+                                return (
+                                    <p key={index}>{addressLine}</p>
+                                )
+                            })}</div>
+                            </div>
+                            <div className="flexContainerRestaurantDetails">
+                                <p className="detailSub">Phone: </p> 
+                                <p>{this.state.restaurantDetails.display_phone}</p>
+                            </div>
+                            <div className="flexContainerRestaurantDetails">
+                                <p className="detailSub">Hours: </p>
+                                <div>
+                                    {(this.state.restaurantDetails.hours === undefined) ? (<p>Please call</p>) : (
+                                        this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
+                                            if (dayObject.day === 0) {
+                                                return (
+                                                    <p key={index}>Monday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                )
+                                            } else if (dayObject.day === 1) {
+                                                return (
+                                                    <p key={index}>Tuesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                )
+                                            } else if (dayObject.day === 2) {
+                                                return (
+                                                    <p key={index}>Wednesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                )
+                                            } else if (dayObject.day === 3) {
+                                                return (
+                                                    <p key={index}>Thursday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                )
+                                            } else if (dayObject.day === 4) {
+                                                return (
+                                                    <p key={index}>Friday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                )
+                                            } else if (dayObject.day === 5) {
+                                                return (
+                                                    <p key={index}>Saturday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                )
+                                            } else if (dayObject.day === 6) {
+                                                return (
+                                                    <p key={index}>Sunday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                )
+                                            }
+                                        })
+                                    )
+                                }
+                                </div>
+                            </div>
+                            <div className="flexContainerRestaurantDetails">
+                                <p className="detailSub">Rating: </p>
+                                <p>{this.state.restaurantDetails.rating}</p> 
+                            </div>
+                            <div className="flexContainerRestaurantDetails">
+                                <p className="detailSub">Cuisine: </p>
+                                <p>{(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
+                            </div>
+                        </div>
+                        <div className="restaurantReviews">
+                            <div className="flexContainerRestaurantDetails">
+                                <p className="detailSub">Reviews: </p>
+                                <div>
+                                    {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
+                                        return (
+                                            <blockquote cite={reviewObject.url} key={reviewObject.id} className="reviewCard">
+                                                <p>{reviewObject.text} </p>
+                                                <div className="reviewYelpLink">
+                                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer" ><span>Read more</span> on <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
+                                                </div>
+                                                <footer>- {reviewObject.user.name}</footer>
+                                            </blockquote>
+                                        )
+                                    }))
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div className="bikeDetails">
                         {/* <img src="https://via.placeholder.com/300" alt=""/> */}
                         <h2>Bikes Near You</h2>
