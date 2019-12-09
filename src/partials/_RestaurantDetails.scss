@@ -75,8 +75,9 @@
 }
 
 blockquote {
-  margin:20px 0px;
+  margin:0;
   padding:0;
+  width:100%;
 }
 
 .nameOfUser {
@@ -98,4 +99,24 @@ blockquote {
 
 .mapDetail {
   height:400px;
+}
+
+.carousel {
+  width:100%;
+  overflow:hidden;
+  text-align:center;
+  margin-top:10px;
+  ol {
+    display:flex;
+    justify-content:center;
+  }
+  li {
+    list-style:disc;
+    width:20px;
+    cursor:pointer;
+    color:$firstColor;
+  }
+  li:hover, li:focus {
+    color:$thirdColor;
+  }
 }
