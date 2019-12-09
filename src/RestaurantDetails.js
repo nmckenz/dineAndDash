@@ -309,6 +309,7 @@ class RestaurantDetails extends Component {
                                     className={'carousel'} // default ''
                                     elementType={'div'} // default 'div'
                                     options={flickityOptions} // takes flickity options {}
+                                    reloadOnUpdate={true}
                                 >
                                     {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
                                         return (
