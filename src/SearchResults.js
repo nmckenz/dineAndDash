@@ -10,6 +10,7 @@ class SearchResults extends Component {
             userPriceChoice: "1,2,3,4",
             userSortBy: "distance",
             cuisineTypes: [
+                {All: "All Cuisine"},
                 {afghani: "Afghan"},
                 {african: "African"},
                 {senegalese: "Senegalese"},
@@ -207,7 +208,7 @@ class SearchResults extends Component {
                                 <p>Loading search results...</p>
                             </div> :
                             null}
-                        <div>
+                        <div className="resultFilters">
                             <form onSubmit={(event) => {
                                 event.preventDefault();
                                 this.props.searchFunction(this.props.location, this.state.userSortBy, this.state.userCuisineChoice, this.state.userPriceChoice)
