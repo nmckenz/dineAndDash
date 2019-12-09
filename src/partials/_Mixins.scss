@@ -1,3 +1,25 @@
 @mixin tablet {
-  @media (max-width: 900px) { @content; }
+  @media (max-width: 900px) { 
+    @content; 
+    // fix submit button on landing page breaks at ~820px
+  }
+}
+
+@mixin narrow-tablet {
+  @media (max-width: 744px) {
+    @content;
+    //3 image layout in header spill out of container
+
+    //restaurantCards begin to get squished around 700px
+    // Content in restCards get crowded (decrease wrapper)
+    
+
+    // stack 
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 400px) { 
+    @content; 
+  }
 }
