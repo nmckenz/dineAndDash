@@ -22,11 +22,12 @@ class App extends Component {
       yelpApiKey: `60l886Qycs9h_wC5Mg_GEdfIBdfzJ2oCL6-lPQcImfh57gu4W9udYJSt1QUdGFM-QXkwGEyNjJvkGAChBIT-4uupi7xVjjOucGT8XXXbirONqLZmbjC01vE4-BvnXXYx`,
       cityBikesUrl: `http://api.citybik.es/v2/networks`,
       junoProxyUrl: `https://proxy.hackeryou.com`,
-      loadingYelp: false
+      loadingYelp: false,
+      userSearchLocation: ""
     }
   }
 
-  searchYelp = (searchLocation, sortBy='distance') => {
+  searchYelp = (searchLocation, sortBy='distance', categories='restaurants, All', price='1,2,3,4') => {
     this.setState({
       // Yelp data is loading...
       loadingYelp: true
@@ -51,7 +52,8 @@ class App extends Component {
           location: searchLocation,
           sort_by: sortBy,
           limit: 24,
-          categories: "restaurants, All"
+          categories: categories,
+          price: price
         },
         xmlToJSON: false
       }
@@ -65,7 +67,8 @@ class App extends Component {
       this.setState({
         restaurants: response.data.businesses,
         // Yelp data is not longer loading! Success.
-        loadingYelp: false
+        loadingYelp: false,
+        userSearchLocation: searchLocation
       })
     })
   }
@@ -137,7 +140,7 @@ class App extends Component {
         {/* Home */}
         <Route
           exact path="/"
-          render = {() => <Home searchFunction={this.searchYelp} restaurants={this.state.restaurants} loadingYelp={this.state.loadingYelp} />}
+          render = {() => <Home searchFunction={this.searchYelp} location={this.state.userSearchLocation} restaurants={this.state.restaurants} loadingYelp={this.state.loadingYelp} />}
         />
         {/* Restaurant details */}
         <Route
