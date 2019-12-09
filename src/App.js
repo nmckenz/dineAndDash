@@ -22,11 +22,12 @@ class App extends Component {
       yelpApiKey: `60l886Qycs9h_wC5Mg_GEdfIBdfzJ2oCL6-lPQcImfh57gu4W9udYJSt1QUdGFM-QXkwGEyNjJvkGAChBIT-4uupi7xVjjOucGT8XXXbirONqLZmbjC01vE4-BvnXXYx`,
       cityBikesUrl: `http://api.citybik.es/v2/networks`,
       junoProxyUrl: `https://proxy.hackeryou.com`,
-      loadingYelp: false
+      loadingYelp: false,
+      userSearchLocation: ""
     }
   }
 
-  searchYelp = (searchLocation, sortBy='distance') => {
+  searchYelp = (searchLocation, sortBy='distance', categories='restaurants, All', price='1,2,3,4') => {
     this.setState({
       // Yelp data is loading...
       loadingYelp: true
@@ -51,7 +52,8 @@ class App extends Component {
           location: searchLocation,
           sort_by: sortBy,
           limit: 24,
-          categories: "restaurants, All"
+          categories: categories,
+          price: price
         },
         xmlToJSON: false
       }
@@ -65,15 +67,16 @@ class App extends Component {
       this.setState({
         restaurants: response.data.businesses,
         // Yelp data is not longer loading! Success.
-        loadingYelp: false
+        loadingYelp: false,
+        userSearchLocation: searchLocation
       })
     })
   }
 
   // Performs an axios call to get all bike networks available on citybikes and store it in state
-  getAllBikeNetworks = (getCoords=null) => {
+  getAllBikeNetworks = (getCoords=null, callback=null) => {
     if (this.state.networks.length>0 && getCoords) {
-      this.findClosestBikeNetwork(getCoords);
+      this.findClosestBikeNetwork(getCoords, callback);
     }
     else {
       axios({
@@ -87,14 +90,14 @@ class App extends Component {
         }, () => {
           // After setstate is done, if getCoords is defined, go immediately to finding the closest network
           if (getCoords) {
-            this.findClosestBikeNetwork(getCoords);
+            this.findClosestBikeNetwork(getCoords, callback);
           }
         });
       })
     }
   }
 
-  findClosestBikeNetwork = (coords) => {
+  findClosestBikeNetwork = (coords, callback=null) => {
     const closestNetwork = {
       bestId: "",
       sqDistance: Infinity
@@ -112,12 +115,15 @@ class App extends Component {
     });
 
     if (closestNetwork.bestId !== "") {
-      this.getSpecificBikeNetwork(closestNetwork.bestId);
+      this.getSpecificBikeNetwork(closestNetwork.bestId, callback);
     }
   }
 
   // Given an endpoint, does an axios call to get all stations within that network
-  getSpecificBikeNetwork = (networkEndpoint) => {
+  getSpecificBikeNetwork = (networkEndpoint, callback=null) => {
+    this.setState({
+      stations:[]
+    });
     axios({
       url: `${this.state.cityBikesUrl}/${networkEndpoint}`,
       method: 'GET',
@@ -128,6 +134,10 @@ class App extends Component {
       this.setState({
         stations:response.data.network.stations
       })
+      // Callback function passed from above. This should be the this.getNearestStation() from the restaurantDetails component, to call it once all of the appropriate bike info is available
+      if (callback) {
+        callback();
+      }
     })
   }
 
@@ -137,7 +147,7 @@ class App extends Component {
         {/* Home */}
         <Route
           exact path="/"
-          render = {() => <Home searchFunction={this.searchYelp} restaurants={this.state.restaurants} loadingYelp={this.state.loadingYelp} />}
+          render = {() => <Home searchFunction={this.searchYelp} location={this.state.userSearchLocation} restaurants={this.state.restaurants} loadingYelp={this.state.loadingYelp} />}
         />
         {/* Restaurant details */}
         <Route
