@@ -6,7 +6,7 @@ footer {
 
     a {
         color: $white;
-        transition: 0.2s ease-in-out;
+        transition: $transition;
         &:hover {
             color: $thirdColor;
         }
