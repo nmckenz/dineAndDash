@@ -28,6 +28,7 @@ class App extends Component {
 
   searchYelp = (searchLocation, sortBy='distance') => {
     this.setState({
+      // Yelp data is loading...
       loadingYelp: true
     })
     // Axios call for yelp data, uses Juno proxy
@@ -63,6 +64,7 @@ class App extends Component {
 
       this.setState({
         restaurants: response.data.businesses,
+        // Yelp data is not longer loading! Success.
         loadingYelp: false
       })
     })
