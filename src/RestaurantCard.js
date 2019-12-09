@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class RestaurantCard extends Component {
     render() {
-        console.log(this.props.singleRestaurant)
+        // console.log(this.props.singleRestaurant)
 
         return (
             <li key={this.props.singleRestaurant.id}>

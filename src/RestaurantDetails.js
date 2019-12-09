@@ -10,7 +10,8 @@ class RestaurantDetails extends Component {
             restaurantDetails: {},
             restaurantReviews: [],
             nearestBikeStation: -1,
-            map: {}
+            map: {},
+            mapLoaded: false
         };
     };
 
@@ -35,14 +36,28 @@ class RestaurantDetails extends Component {
                 xmlToJSON: false
             }
         }).then((result) => {
-            // Get the closest city bikes stations if they don't already exist
-            if (this.props.bikeStations.length===0) {
-                this.props.bikesGetFunction(result.data.coordinates);
-            }
-            
             console.log("restaurant details yelp api result", result);
             this.setState({
                 restaurantDetails: result.data
+            }, () => {
+                // Once the restaurant details have been saved to state...
+                // Fit restaurant location in the map
+                const viewBox = [
+                    [result.data.coordinates.longitude - 0.0005, result.data.coordinates.latitude - 0.0005],
+                    [result.data.coordinates.longitude + 0.0005, result.data.coordinates.latitude + 0.0005]
+                ]
+                this.state.map.fitBounds(viewBox, {
+                    padding: {top: 10, bottom: 10, left: 10, right: 10},
+                    animate: false
+                });
+                // Get the closest city bikes stations if they don't already exist
+                if (this.props.bikeStations.length===0) {
+                    this.props.bikesGetFunction(result.data.coordinates, this.getNearestStation);
+                }
+                else {
+                    // If they exist, just directly try to figure it out
+                    this.getNearestStation();
+                }
             })
             axios({
                 url: this.props.junoProxyUrl,
@@ -125,7 +140,12 @@ class RestaurantDetails extends Component {
                     "icon-size": 0.1
                     }
                 });
+                // The map is ready! Set state to say so
+                this.setState({
+                    mapLoaded:true
+                })
             }
+
         );
     });
 
@@ -181,28 +201,48 @@ class RestaurantDetails extends Component {
     }
 
     render() {
-        if("coordinates" in this.state.restaurantDetails && this.state.map.loaded()){
-                this.state.map.getSource("restaurant").setData({
-                type: "Point",
-                coordinates: [
-                    this.state.restaurantDetails.coordinates.longitude,
-                    this.state.restaurantDetails.coordinates.latitude
+        if (this.state.mapLoaded) {
+            // Restaurant is loaded. Add its marker to the map!
+            if("coordinates" in this.state.restaurantDetails){
+                    this.state.map.getSource("restaurant").setData({
+                    type: "Point",
+                    coordinates: [
+                        this.state.restaurantDetails.coordinates.longitude,
+                        this.state.restaurantDetails.coordinates.latitude
+                    ]
+                })
+            }
+            // Bike location is loaded. Add it to the map!
+            if (this.state.nearestBikeStation >= 0){
+                this.state.map.getSource("bikes").setData({
+                    type: "Point",
+                    coordinates: [
+                        this.props.bikeStations[this.state.nearestBikeStation].longitude,
+                        this.props.bikeStations[this.state.nearestBikeStation].latitude
+                    ]
+                })
+            }
+
+            // Bike and restaurant both loaded. Zoom to fit.
+            if ("coordinates" in this.state.restaurantDetails && this.state.nearestBikeStation >= 0) {
+                const viewBox = [
+                    [
+                        this.state.restaurantDetails.coordinates.longitude,
+                        this.state.restaurantDetails.coordinates.latitude
+                    ],
+                    [
+                        this.props.bikeStations[this.state.nearestBikeStation].longitude,
+                        this.props.bikeStations[this.state.nearestBikeStation].latitude
+                    ]
                 ]
-            })
-        }
-        if (this.state.nearestBikeStation >= 0 && this.state.map.loaded()){
-            this.state.map.getSource("bikes").setData({
-                type: "Point",
-                coordinates: [
-                    this.props.bikeStations[this.state.nearestBikeStation].longitude,
-                    this.props.bikeStations[this.state.nearestBikeStation].latitude
-                ]
-            })
+                this.state.map.fitBounds(viewBox, {
+                    padding: {top: 50, bottom: 50, left: 50, right: 50},
+                });
+            }
         }
         
 
         console.log("state restaurant reviews", this.state.restaurantReviews)
-        this.getNearestStation();
         return (
             <div className="detailsContent">
                 <div className="wrapper">
