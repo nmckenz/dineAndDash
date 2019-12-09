@@ -187,33 +187,10 @@ class RestaurantDetails extends Component {
                                 <div>
                                     {(this.state.restaurantDetails.hours === undefined) ? (<p>Please call</p>) : (
                                         this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
-                                            if (dayObject.day === 0) {
+                                            const days=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday','Sunday'];
+                                            if (dayObject.day>=0 && dayObject.day < days.length) {
                                                 return (
-                                                    <p key={index}>Monday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                                )
-                                            } else if (dayObject.day === 1) {
-                                                return (
-                                                    <p key={index}>Tuesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                                )
-                                            } else if (dayObject.day === 2) {
-                                                return (
-                                                    <p key={index}>Wednesday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                                )
-                                            } else if (dayObject.day === 3) {
-                                                return (
-                                                    <p key={index}>Thursday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                                )
-                                            } else if (dayObject.day === 4) {
-                                                return (
-                                                    <p key={index}>Friday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                                )
-                                            } else if (dayObject.day === 5) {
-                                                return (
-                                                    <p key={index}>Saturday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
-                                                )
-                                            } else if (dayObject.day === 6) {
-                                                return (
-                                                    <p key={index}>Sunday: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                    <p key={index}>{days[dayObject.day]}: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
                                                 )
                                             }
                                         })
