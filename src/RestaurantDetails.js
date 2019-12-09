@@ -219,23 +219,21 @@ class RestaurantDetails extends Component {
                         <div className="restaurantReviews">
                             <div className="flexContainerRestaurantDetails">
 
-                                <p className="detailSub">Reviews: </p>
-                                <div>
-                                    {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
-                                        return (
-                                            <blockquote cite={reviewObject.url} key={reviewObject.id} className="reviewCard">
-                                                <p>{reviewObject.text}</p>
-                                                <div className="reviewYelpLink">
-                                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer">Read more on Yelp <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
-                                                </div>
-                                                <div className="nameOfUser">
-                                                    <p>- {reviewObject.user.name}</p>
-                                                </div>
-                                            </blockquote>
-                                        )
-                                    }))
-                                    }
-                                </div>
+                                <p className="detailSub">Reviews:</p>
+                                {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
+                                    return (
+                                        <blockquote cite={reviewObject.url} key={reviewObject.id} className="reviewCard">
+                                            <p>{reviewObject.text}</p>
+                                            <div className="reviewYelpLink">
+                                                <a href={reviewObject.url} target="_blank" rel="noopener noreferrer">Read more on Yelp <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
+                                            </div>
+                                            <div className="nameOfUser">
+                                                <p>- {reviewObject.user.name}</p>
+                                            </div>
+                                        </blockquote>
+                                    )
+                                }))
+                                }
 
                             </div>
                         </div>
@@ -246,14 +244,14 @@ class RestaurantDetails extends Component {
                     <div className="bikeDetails">
                         {/* <img src="https://via.placeholder.com/300" alt=""/> */}
                         <h2>Bikes Near You</h2>
+                        <div id="mapContent" className="mapDetail">
+
+                        </div>
                         <div className="bikeInfo">
                             {(this.state.nearestBikeStation >= 0) ?
                                 <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
                                 null}
                             <h3>placeholder text (bike share toronto)</h3>
-                        </div>
-                        <div id="mapContent" className="mapDetail">
-
                         </div>
                     </div>
 
