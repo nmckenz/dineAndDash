@@ -7,7 +7,7 @@ function Home(props) {
         <div>
             <Header searchFunction={props.searchFunction} />
             {(props.restaurants.length > 0 || props.loadingYelp) ?
-              <SearchResults restaurants={props.restaurants} loading={props.loadingYelp} />
+              <SearchResults searchFunction={props.searchFunction} location={props.location} restaurants={props.restaurants} loading={props.loadingYelp} />
               : null}
         </div>
     );
