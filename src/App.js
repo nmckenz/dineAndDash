@@ -71,9 +71,9 @@ class App extends Component {
   }
 
   // Performs an axios call to get all bike networks available on citybikes and store it in state
-  getAllBikeNetworks = (getCoords=null) => {
+  getAllBikeNetworks = (getCoords=null, callback=null) => {
     if (this.state.networks.length>0 && getCoords) {
-      this.findClosestBikeNetwork(getCoords);
+      this.findClosestBikeNetwork(getCoords, callback);
     }
     else {
       axios({
@@ -87,14 +87,14 @@ class App extends Component {
         }, () => {
           // After setstate is done, if getCoords is defined, go immediately to finding the closest network
           if (getCoords) {
-            this.findClosestBikeNetwork(getCoords);
+            this.findClosestBikeNetwork(getCoords, callback);
           }
         });
       })
     }
   }
 
-  findClosestBikeNetwork = (coords) => {
+  findClosestBikeNetwork = (coords, callback=null) => {
     const closestNetwork = {
       bestId: "",
       sqDistance: Infinity
@@ -112,12 +112,15 @@ class App extends Component {
     });
 
     if (closestNetwork.bestId !== "") {
-      this.getSpecificBikeNetwork(closestNetwork.bestId);
+      this.getSpecificBikeNetwork(closestNetwork.bestId, callback);
     }
   }
 
   // Given an endpoint, does an axios call to get all stations within that network
-  getSpecificBikeNetwork = (networkEndpoint) => {
+  getSpecificBikeNetwork = (networkEndpoint, callback=null) => {
+    this.setState({
+      stations:[]
+    });
     axios({
       url: `${this.state.cityBikesUrl}/${networkEndpoint}`,
       method: 'GET',
@@ -128,6 +131,10 @@ class App extends Component {
       this.setState({
         stations:response.data.network.stations
       })
+      // Callback function passed from above. This should be the this.getNearestStation() from the restaurantDetails component, to call it once all of the appropriate bike info is available
+      if (callback) {
+        callback();
+      }
     })
   }
 
