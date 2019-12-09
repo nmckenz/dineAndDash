@@ -164,26 +164,29 @@ class RestaurantDetails extends Component {
         console.log("state restaurant reviews", this.state.restaurantReviews)
         this.getNearestStation();
         return (
-            <div className="wrapper">
-                <div className="detailsContent">
+            <div className="detailsContent">
+                <div className="wrapper">
+
                     <div className="restaurantDetails">
                         <h2>{this.state.restaurantDetails.name}</h2>
                         <img src={(this.state.restaurantDetails.image_url === '') ? require('./assets/imagePlaceholder.jpg')
                             : this.state.restaurantDetails.image_url} alt="" />
 
                         <div className="restaurantContactInfo">
-                            <div className="flexContainerRestaurantDetails"><p className="detailSub">Address: </p> <div>{(this.state.restaurantDetails.location === undefined) ? null : this.state.restaurantDetails.location.display_address.map((addressLine, index) => {
-                                return (
-                                    <p key={index}>{addressLine}</p>
-                                )
-                            })}</div>
+                            <div className="flexContainerRestaurantDetails">
+                                <p className="detailSub">Address:</p>
+                                <div>{(this.state.restaurantDetails.location === undefined) ? null : this.state.restaurantDetails.location.display_address.map((addressLine, index) => {
+                                    return (<p key={index}>{addressLine}</p>)})}
+                                </div>
                             </div>
+
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Phone: </p> 
                                 <p>{this.state.restaurantDetails.display_phone}</p>
                             </div>
+
                             <div className="flexContainerRestaurantDetails">
-                                <p className="detailSub">Hours: </p>
+                                <p className="detailSub">Hours:</p>
                                 <div>
                                     {(this.state.restaurantDetails.hours === undefined) ? (<p>Please call</p>) : (
                                         this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
@@ -220,16 +223,21 @@ class RestaurantDetails extends Component {
                                     )
                                 }
                                 </div>
-                            </div>
+                            </div>{/* closing tag for flexContainerRestaurantDetails */}
+                            
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Rating: </p>
                                 <p>{this.state.restaurantDetails.rating}</p> 
                             </div>
+
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Cuisine: </p>
                                 <p>{(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
                             </div>
-                        </div>
+
+                        </div>{/* closing tag for restaurantContactInfo */}
+
+
                         <div className="restaurantReviews">
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Reviews: </p>
@@ -248,11 +256,12 @@ class RestaurantDetails extends Component {
                                         )
                                     }))
                                     }
-
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                    </div>{/* closing tag for restaurantDetails */}
+
 
                     <div className="bikeDetails">
                         {/* <img src="https://via.placeholder.com/300" alt=""/> */}
@@ -267,8 +276,10 @@ class RestaurantDetails extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                    
+                </div>{/* closing tag for wrapper */}
+            </div>// closing tag for detailsContent
         )
     }
 }
