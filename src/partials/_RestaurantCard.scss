@@ -48,7 +48,8 @@
     .restaurantCardContent {
         padding: 10px;
     }
-    .restaurantName a:hover {
+    .restaurantName a:hover,
+    .restaurantName a:focus {
         color:$thirdColor;
     }
     .yelpStarsAndLogo {

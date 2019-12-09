@@ -176,25 +176,25 @@ class RestaurantDetails extends Component {
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Address:</p>
                                 <div>{(this.state.restaurantDetails.location === undefined) ? null : this.state.restaurantDetails.location.display_address.map((addressLine, index) => {
-                                    return (<p key={index}>{addressLine}</p>)})}
+                                    return (<p className="info" key={index}>{addressLine}</p>)})}
                                 </div>
                             </div>
 
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Phone: </p> 
-                                <p>{this.state.restaurantDetails.display_phone}</p>
+                                <p className="info">{this.state.restaurantDetails.display_phone}</p>
                             </div>
 
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Hours:</p>
                                 <div>
-                                    {(this.state.restaurantDetails.hours === undefined) ? (<p>Please call</p>) : (
+                                    {(this.state.restaurantDetails.hours === undefined) ? (<p className="info">Please call</p>) : (
                                         this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
                                             // Get day name from array
                                             const days=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday','Sunday'];
                                             if (dayObject.day>=0 && dayObject.day < days.length) {
                                                 return (
-                                                    <p key={index}>{days[dayObject.day]}: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
+                                                    <p className="info" key={index}>{days[dayObject.day]}: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
                                                 )
                                             }
                                         })
@@ -205,12 +205,12 @@ class RestaurantDetails extends Component {
                             
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Rating: </p>
-                                <p>{this.state.restaurantDetails.rating}</p> 
+                                <p className="info">{this.state.restaurantDetails.rating}</p> 
                             </div>
 
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Cuisine: </p>
-                                <p>{(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
+                                <p className="info">{(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
                             </div>
 
                         </div>{/* closing tag for restaurantContactInfo */}
@@ -218,14 +218,15 @@ class RestaurantDetails extends Component {
 
                         <div className="restaurantReviews">
                             <div className="flexContainerRestaurantDetails">
+
                                 <p className="detailSub">Reviews: </p>
                                 <div>
                                     {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
                                         return (
                                             <blockquote cite={reviewObject.url} key={reviewObject.id} className="reviewCard">
-                                                <p>{reviewObject.text} </p>
+                                                <p>{reviewObject.text}</p>
                                                 <div className="reviewYelpLink">
-                                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer" ><span>Read more</span> on <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
+                                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer">Read more on Yelp <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
                                                 </div>
                                                 <div className="nameOfUser">
                                                     <p>- {reviewObject.user.name}</p>
@@ -235,6 +236,7 @@ class RestaurantDetails extends Component {
                                     }))
                                     }
                                 </div>
+
                             </div>
                         </div>
 
@@ -244,14 +246,14 @@ class RestaurantDetails extends Component {
                     <div className="bikeDetails">
                         {/* <img src="https://via.placeholder.com/300" alt=""/> */}
                         <h2>Bikes Near You</h2>
-                        {(this.state.nearestBikeStation>=0) ?
-                            <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
-                            null}
                         <div className="bikeInfo">
+                            {(this.state.nearestBikeStation >= 0) ?
+                                <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
+                                null}
                             <h3>placeholder text (bike share toronto)</h3>
-                            <div id="mapContent" className="mapDetail">
+                        </div>
+                        <div id="mapContent" className="mapDetail">
 
-                            </div>
                         </div>
                     </div>
 
