@@ -20,7 +20,7 @@ class App extends Component {
       stations: [],
       yelpUrl: `https://api.yelp.com/v3/businesses`,
       yelpApiKey: `60l886Qycs9h_wC5Mg_GEdfIBdfzJ2oCL6-lPQcImfh57gu4W9udYJSt1QUdGFM-QXkwGEyNjJvkGAChBIT-4uupi7xVjjOucGT8XXXbirONqLZmbjC01vE4-BvnXXYx`,
-      cityBikesUrl: `http://api.citybik.es/v2/networks`,
+      cityBikesUrl: `https://api.citybik.es/v2/networks`,
       junoProxyUrl: `https://proxy.hackeryou.com`,
       loadingYelp: false,
       userSearchLocation: ""
@@ -143,7 +143,7 @@ class App extends Component {
 
   render(){
     return(
-      <Router>
+      <Router basename='/projectSix'>
         {/* Home */}
         <Route
           exact path="/"
