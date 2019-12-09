@@ -78,8 +78,9 @@ class RestaurantDetails extends Component {
         //   starting point in map
         //   center: [-79.39, 43.64]
         });
-        // console.log(this.props.restaurantDetails)
 
+
+        
         map.on("load", function() {
         map.loadImage(
             "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
@@ -113,9 +114,6 @@ class RestaurantDetails extends Component {
             }
         );
     });
-
-    
-
 
 
 
