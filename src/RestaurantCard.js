@@ -8,10 +8,12 @@ class RestaurantCard extends Component {
 
         return (
             <li key={this.props.singleRestaurant.id}>
-                <img src={
-                    (this.props.singleRestaurant.image_url === '') 
-                    ? require('./assets/imagePlaceholder.jpg') 
-                    : this.props.singleRestaurant.image_url} alt=""/>
+                
+                {(this.props.singleRestaurant.image_url === '')
+                    ? <img src={require('./assets/imagePlaceholder.jpg')} alt={`Image of smiling cat because Yelp has not provided one for ${this.props.singleRestaurant.name}`}/>
+                
+                    : <img src={this.props.singleRestaurant.image_url} alt={`Picture of ${this.props.singleRestaurant.categories[0].title} food from ${this.props.singleRestaurant.name}`}/>}
+            
                 <div className="restaurantCardContent">
                     <div className="restaurantName">
                         <p>{this.props.singleRestaurant.name}</p>
@@ -19,10 +21,10 @@ class RestaurantCard extends Component {
                     </div>
                     <div className="yelpStarsAndLogo">
                         <div className="starRating">
-                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require("./assets/stars" + this.props.singleRestaurant.rating + ".png")} alt="" /></a>
+                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require("./assets/stars" + this.props.singleRestaurant.rating + ".png")} alt={`Star rating for ${this.props.singleRestaurant.name}`} /></a>
                         </div>
                         <div className="yelpLogo">
-                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require('./assets/yelpLogo.png')} alt="" /></a>
+                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require('./assets/yelpLogo.png')} alt="Yelp logo" /></a>
                         </div>
                     </div>
                 </div>
