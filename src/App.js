@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import axios from 'axios';
 import Qs from 'qs';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './Home';
 import RestaurantDetails from './RestaurantDetails';
 import Footer from './Footer.js';
@@ -21,11 +21,15 @@ class App extends Component {
       yelpUrl: `https://api.yelp.com/v3/businesses`,
       yelpApiKey: `60l886Qycs9h_wC5Mg_GEdfIBdfzJ2oCL6-lPQcImfh57gu4W9udYJSt1QUdGFM-QXkwGEyNjJvkGAChBIT-4uupi7xVjjOucGT8XXXbirONqLZmbjC01vE4-BvnXXYx`,
       cityBikesUrl: `http://api.citybik.es/v2/networks`,
-      junoProxyUrl: `https://proxy.hackeryou.com`
+      junoProxyUrl: `https://proxy.hackeryou.com`,
+      loadingYelp: false
     }
   }
 
   searchYelp = (searchLocation, sortBy='distance') => {
+    this.setState({
+      loadingYelp: true
+    })
     // Axios call for yelp data, uses Juno proxy
     axios({
       url: this.state.junoProxyUrl,
@@ -58,7 +62,8 @@ class App extends Component {
       this.findClosestBikeNetwork(yelpLocation);
 
       this.setState({
-        restaurants: response.data.businesses
+        restaurants: response.data.businesses,
+        loadingYelp: false
       })
     })
   }
@@ -130,7 +135,7 @@ class App extends Component {
         {/* Home */}
         <Route
           exact path="/"
-          render = {() => <Home searchFunction={this.searchYelp} restaurants={this.state.restaurants} />}
+          render = {() => <Home searchFunction={this.searchYelp} restaurants={this.state.restaurants} loadingYelp={this.state.loadingYelp} />}
         />
         {/* Restaurant details */}
         <Route
