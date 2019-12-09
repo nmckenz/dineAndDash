@@ -241,7 +241,9 @@ class RestaurantDetails extends Component {
                                                 <div className="reviewYelpLink">
                                                     <a href={reviewObject.url} target="_blank" rel="noopener noreferrer" ><span>Read more</span> on <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
                                                 </div>
-                                                <footer>- {reviewObject.user.name}</footer>
+                                                <div className="nameOfUser">
+                                                    <p>- {reviewObject.user.name}</p>
+                                                </div>
                                             </blockquote>
                                         )
                                     }))

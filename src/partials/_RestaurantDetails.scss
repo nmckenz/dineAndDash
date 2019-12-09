@@ -45,6 +45,7 @@
 .reviewCard {
   border:1px solid $black;
   border-radius:10px;
+  overflow: hidden;
 
   p span {
     text-transform: uppercase;
@@ -82,4 +83,11 @@
 
 .mapDetail {
   height:400px;
+}
+
+.nameOfUser {
+    text-align: center;
+    padding: 10px 0px;
+    background: $firstColor;
+    color: $white;
 }
