@@ -63,15 +63,16 @@
   height: 30px;
 
   a {
-    position: absolute;
-    right: 0;
     opacity: 0;
-    transition: right 0.64s, opacity 0.63s cubic-bezier(0.33, 0.66, 0.66, 1);
+    transition: 0.6s transform ease-out, 0.6s opacity ease-in;
+    display: block;
+    text-align: center;
+    transform: translateX(100%);
   }
 }
 
 .reviewCard:hover a {
-  right: 175px;
+  transform: translateX(0);
   opacity: 1;
 }
 
