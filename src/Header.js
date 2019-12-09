@@ -37,17 +37,32 @@ class Header extends Component {
                     </div>
                 </div>
                 <div className="recommendationContainer">
-                    <div className="restaurantRecommendation">
+                    <div className="restaurantRecommendation num1">
                         {/* <p>restaurant #1</p> */}
-                        <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/>
+                        {/* <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/> */}
+                        <div className="recommendationContent">
+                            <div className="innerBox">
+                                <p>Lorem, ipsum.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="restaurantRecommendation">
+                    <div className="restaurantRecommendation num2">
                         {/* <p>restaurant #2</p> */}
-                        <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" />
+                        {/* <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" /> */}
+                        <div className="recommendationContent">
+                            <div className="innerBox">
+                                <p>Lorem, ipsum.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="restaurantRecommendation">
+                    <div className="restaurantRecommendation num3">
                         {/* <p>restaurant #3</p> */}
-                        <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" />
+                        {/* <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" /> */}
+                        <div className="recommendationContent">
+                            <div className="innerBox">
+                                <p>Lorem, ipsum.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
