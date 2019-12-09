@@ -3,4 +3,13 @@ footer {
     padding: 10px 0px;
     background: $firstColor;
     color: $white;
+
+    a {
+        color: $white;
+        transition: 0.2s ease-in-out;
+        &:hover {
+            color: $thirdColor;
+        }
+    }
 }
+
