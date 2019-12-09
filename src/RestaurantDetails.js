@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Qs from 'qs';
 import axios from 'axios';
-
+import Flickity from 'react-flickity-component'
 
 class RestaurantDetails extends Component {
     constructor() {
@@ -163,6 +163,11 @@ class RestaurantDetails extends Component {
     render() {
         console.log("state restaurant reviews", this.state.restaurantReviews)
         this.getNearestStation();
+
+        const flickityOptions = {
+            prevNextButtons: false
+        }
+
         return (
             <div className="detailsContent">
                 <div className="wrapper">
@@ -220,20 +225,26 @@ class RestaurantDetails extends Component {
                             <div className="flexContainerRestaurantDetails">
 
                                 <p className="detailSub">Reviews:</p>
-                                {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
-                                    return (
-                                        <blockquote cite={reviewObject.url} key={reviewObject.id} className="reviewCard">
-                                            <p>{reviewObject.text}</p>
-                                            <div className="reviewYelpLink">
-                                                <a href={reviewObject.url} target="_blank" rel="noopener noreferrer">Read more on Yelp <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
-                                            </div>
-                                            <div className="nameOfUser">
-                                                <p>- {reviewObject.user.name}</p>
-                                            </div>
-                                        </blockquote>
-                                    )
-                                }))
-                                }
+                                <Flickity
+                                    className={'carousel'} // default ''
+                                    elementType={'div'} // default 'div'
+                                    options={flickityOptions} // takes flickity options {}
+                                >
+                                    {(this.state.restaurantReviews.length === 0) ? null : (this.state.restaurantReviews.map((reviewObject) => {
+                                        return (
+                                            <blockquote cite={reviewObject.url} key={reviewObject.id} className="reviewCard">
+                                                <p>{reviewObject.text}</p>
+                                                <div className="reviewYelpLink">
+                                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer">Read more on Yelp <img src={require('./assets/yelpLogoIconOnly.png')} alt="" className="detailsYelpLogo"/></a>
+                                                </div>
+                                                <div className="nameOfUser">
+                                                    <p>- {reviewObject.user.name}</p>
+                                                </div>
+                                            </blockquote>
+                                        )
+                                    }))
+                                    }
+                                </Flickity>
 
                             </div>
                         </div>
