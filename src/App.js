@@ -143,7 +143,9 @@ class App extends Component {
 
   render(){
     return(
-      <Router basename='/projectSix'>
+      <Router basename='/'>
+      {/* Use basename='/projectSix' for gh-pages deploy */}
+      {/* <Router basename='/projectSix'> */}
         {/* Home */}
         <Route
           exact path="/"
