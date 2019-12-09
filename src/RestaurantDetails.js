@@ -190,6 +190,7 @@ class RestaurantDetails extends Component {
                                 <div>
                                     {(this.state.restaurantDetails.hours === undefined) ? (<p>Please call</p>) : (
                                         this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
+                                            // Get day name from array
                                             const days=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday','Sunday'];
                                             if (dayObject.day>=0 && dayObject.day < days.length) {
                                                 return (
