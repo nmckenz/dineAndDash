@@ -36,11 +36,21 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
+        @include mqLargeMobile {
+            height: auto;
+        }
     }
 
     select, button {
         height: 100%;
         margin: 0 5px;
+        @include mqLargeMobile {
+            width: 50%;
+            margin: 5px;
+        }
+        @include mqMobile {
+            width: 90%;
+        }
     }
 }
 
