@@ -100,6 +100,9 @@ class RestaurantDetails extends Component {
         let hours = timeArray[0] + timeArray[1];
         let minutes = timeArray[2] + timeArray[3];
         const amOrPm = (parseInt(hours) >= 12) ? 'PM' : 'AM';
+        if (hours === "00") {
+            hours = "24"
+        }
         if (parseInt(hours) > 12) {
             hours = (hours - 12).toString();
         } else if (timeArray[0] === "0") {
@@ -134,6 +137,7 @@ class RestaurantDetails extends Component {
                     }
                 }
             });
+            
             // If a best case was found...
             if (bestStation.id >= 0) {
                 // ..record it, and then...
