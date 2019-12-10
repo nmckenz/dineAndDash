@@ -1,12 +1,12 @@
-@mixin tablet {
+@mixin mqTablet {
   @media (max-width: 900px) { 
     @content; 
     // fix submit button on landing page breaks at ~820px
   }
 }
 
-@mixin narrow-tablet {
-  @media (max-width: 744px) {
+@mixin mqSmallTablet {
+  @media (max-width: 768px) {
     @content;
     //3 image layout in header spill out of container
 
@@ -18,7 +18,7 @@
   }
 }
 
-@mixin mobile {
+@mixin mqMobile {
   @media (max-width: 400px) { 
     @content; 
   }

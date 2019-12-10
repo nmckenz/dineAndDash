@@ -19,6 +19,12 @@
     text-align: center;
     width: 50%;
     padding: 10px;
+
+
+    @include mqSmallTablet {
+        width: 80%;
+    }
+
     input,button {
         height: 40px;
         padding: 5px 15px;
@@ -26,6 +32,10 @@
     }
     input {
         width: 65%;
+        @include mqTablet {
+            width: 100%;
+            max-width:250px;
+        }
     }
     button {
         text-transform: uppercase;
@@ -36,6 +46,11 @@
         transition: $transition;
         &:hover, &:focus {
             background-color: $thirdColor;
+        }
+        @include mqTablet {
+            width: 100%;
+            max-width:250px;
+            margin: 5px 0px;
         }
     }
 }
