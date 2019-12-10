@@ -12,6 +12,22 @@
     }
 }
 
+.heroContent {
+    .innerBox {
+        padding: 50px;
+        border: 1px rgba($white, 0.75) solid;
+        @include mqSmallTablet {
+            padding: 50px 0px;
+        }
+    }
+}
+
+.recommendationContent {
+    .innerBox {
+        padding: 10px;
+        border: 1px rgba($white, 0.75) solid;
+    }
+}
 
 .heroContent,
 .recommendationContent {
@@ -93,12 +109,4 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-}
-
-.innerBox {
-    padding: 50px;
-    border: 1px rgba($white, 0.75) solid;
-    @include mqSmallTablet {
-        padding: 50px 0px;
-    }
 }
