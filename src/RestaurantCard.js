@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-
+// Individual restaurant card, to be displayed in the search results
 class RestaurantCard extends Component {
     render() {
-        // console.log(this.props.singleRestaurant)
-
         return (
             <li key={this.props.singleRestaurant.id}>
                 

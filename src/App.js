@@ -61,15 +61,14 @@ class App extends Component {
         xmlToJSON: false
       }
     }).then((response) => {
-      console.log('yelp response',response);
 
+      // Use the location from the yelp response to get the nearest bike network
       const yelpLocation = response.data.region.center;
-
       this.findClosestBikeNetwork(yelpLocation);
 
       this.setState({
         restaurants: response.data.businesses,
-        // Yelp data is not longer loading! Success.
+        // Yelp data has been loaded! Success.
         loadingYelp: false,
         userSearchLocation: searchLocation
       })
@@ -84,6 +83,8 @@ class App extends Component {
 
   // Performs an axios call to get all bike networks available on citybikes and store it in state
   getAllBikeNetworks = (getCoords=null, callback=null) => {
+    // If networks have already been loaded, and coordinates are being supplied, skip this step.
+    // Go straight to finding the closest network.
     if (this.state.networks.length>0 && getCoords) {
       this.findClosestBikeNetwork(getCoords, callback);
     }
@@ -93,7 +94,7 @@ class App extends Component {
         method: 'GET',
         dataResponse: 'json'
       }).then((response) => {
-        console.log('citybikes response', response);
+        // Store bike networks
         this.setState({
           networks:response.data.networks
         }, () => {
@@ -111,18 +112,19 @@ class App extends Component {
     }
   }
 
+  // Given some coordinates, find the nearest bike network
   findClosestBikeNetwork = (coords, callback=null) => {
 
     // check to make sure the needed information is present
     // If it's not, quit!
     if (this.state.networks.length<0 || typeof coords !== 'object' || !('latitude' in coords && 'longitude' in coords)) {
-      console.log("Something broke in findClosestBikeNetwork");
       this.setState({
         failedBikeSearch: true
       });
       return;
     }
 
+    // Remember the nearest network in closestNetwork
     const closestNetwork = {
       bestId: "",
       sqDistance: Infinity
@@ -139,9 +141,11 @@ class App extends Component {
       }
     });
 
+    // If a best case has been found, query that best network
     if (closestNetwork.bestId !== "") {
       this.getSpecificBikeNetwork(closestNetwork.bestId, callback);
     } else {
+      // If not, something went wrong. Failed.
       this.setState({
         failedBikeSearch: true
       });
@@ -158,15 +162,11 @@ class App extends Component {
       method: 'GET',
       dataResponse: 'json'
     }).then((response) => {
-      console.log('citybikes response', response);
-
+      // Record the list of stations
       this.setState({
         stations:response.data.network.stations
-      })
-      // Callback function passed from above. This should be the this.getNearestStation() from the restaurantDetails component, to call it once all of the appropriate bike info is available
-      if (callback) {
-        callback();
-      }
+      }, callback);
+      // ^^^ Callback function passed from above. This should be the this.getNearestStation() from the restaurantDetails component, to call it once all of the appropriate bike info is available
     }).catch(()=> {
       // something went wrong D:
       this.setState({
