@@ -214,13 +214,13 @@ class SearchResults extends Component {
                                 this.props.searchFunction(this.props.location, this.state.userSortBy, this.state.userCuisineChoice, this.state.userPriceChoice)
                             }
                             }>
-                                <select value="sortSelect" onChange={this.handleChangeSortBy}>
-                                    <option value="">Sort By</option>
+                                <select className="formSelect" onChange={this.handleChangeSortBy}>
+                                    <option value="" disabled selected value="">Sort By</option>
                                     <option value="distance">Distance</option>
                                     <option value="rating">Rating</option>
                                 </select>
-                                <select value="cuisineSelect" onChange={this.handleChangeCuisine}>
-                                    <option value="">Choose a Cuisine</option>
+                                <select className="formSelect" onChange={this.handleChangeCuisine}>
+                                    <option value="" disabled selected value="">Choose a Cuisine</option>
                                     {this.state.cuisineTypes.map((cuisineObject, index) => {
                                         for (let cuisineType in cuisineObject) {
                                             return (
@@ -229,8 +229,8 @@ class SearchResults extends Component {
                                         }
                                     })}
                                 </select>
-                                <select value="priceSelect" onChange={this.handleChangePrice}>
-                                    <option value="">Choose a Price</option>
+                                <select className="formSelect" onChange={this.handleChangePrice}>
+                                    <option value="" disabled selected value="">Choose a Price</option>
                                     <option value="1">$</option>
                                     <option value="1,2">$ - $$</option>
                                     <option value="1,2,3">$ - $$$</option>

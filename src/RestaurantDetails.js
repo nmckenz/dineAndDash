@@ -9,6 +9,7 @@ class RestaurantDetails extends Component {
         this.state = {
             restaurantDetails: {},
             restaurantReviews: [],
+            directions: [],
             nearestBikeStation: -1,
             map: {},
             mapLoaded: false
@@ -82,6 +83,7 @@ class RestaurantDetails extends Component {
                     restaurantReviews: result.data.reviews
                 })
             })
+            
         })
 
 
@@ -149,7 +151,9 @@ class RestaurantDetails extends Component {
         );
     });
 
-
+        // if (this.state.restaurantDetails.coordinates !== undefined) {
+        //     this.getDirections(this.state.restaurantDetails.coordinates.latitude, this.state.restaurantDetails.coordinates.longitude, this.props.bikeStations[this.state.nearestBikeStation].latitude, this.props.bikeStations[this.state.nearestBikeStation].longitude)
+        // }
 
 
     //componentDidMount ends
@@ -196,8 +200,31 @@ class RestaurantDetails extends Component {
                 this.setState({
                     nearestBikeStation: bestStation.id
                 })
+
+                this.getDirections(this.state.restaurantDetails.coordinates.latitude, this.state.restaurantDetails.coordinates.longitude, this.props.bikeStations[this.state.nearestBikeStation].latitude, this.props.bikeStations[this.state.nearestBikeStation].longitude)
             }
         }
+        
+        // if (this.state.restaurantDetails.coordinates !== undefined) {
+        //     this.getDirections(this.state.restaurantDetails.coordinates.latitude, this.state.restaurantDetails.coordinates.longitude, this.props.bikeStations[this.state.nearestBikeStation].latitude, this.props.bikeStations[this.state.nearestBikeStation].longitude)
+        // }
+    }
+
+    getDirections = (restaurantLat, restaurantLong, bikeLat, bikeLong) => {
+        axios({
+            url: `https://api.mapbox.com/directions/v5/mapbox/walking/${restaurantLong},${restaurantLat};${bikeLong},${bikeLat}`,
+            method: 'GET',
+            dataResponse: 'json',
+            params: {
+                steps: true,
+                access_token: `pk.eyJ1IjoibWFjaGlhdmVsbGk5OTg4IiwiYSI6ImNrM3QwdWxtcjBjd3QzYnBvcXB4dDJ4ejYifQ.QngVoflfq_NkBYKbAohhPQ`
+            }
+        }).then((result) => {
+            console.log("MAPBOX nav api", result)
+            this.setState({
+                directions: result.data.routes[0].legs[0].steps
+            })
+        })
     }
 
     render() {
@@ -247,6 +274,13 @@ class RestaurantDetails extends Component {
         const flickityOptions = {
             prevNextButtons: false
         }
+
+        console.log("DIRECTIONS", this.state.directions)
+        // if (this.props.bikeStations[this.state.nearestBikeStation] !== undefined) {
+        //     const bikeLatitiude = this.props.bikeStations[this.state.nearestBikeStation].latitude;
+        //     const bikeLongitude = this.props.bikeStations[this.state.nearestBikeStation].longitude;
+        //     console.log("NEAREST STATION variable assign", bikeLatitiude, bikeLongitude)
+        // }
 
         return (
             <div className="detailsContent">
@@ -342,7 +376,18 @@ class RestaurantDetails extends Component {
                             {(this.state.nearestBikeStation >= 0) ?
                                 <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
                                 null}
+
                             <h3>placeholder text (bike share toronto)</h3>
+
+                            {/* {
+                                (this.state.restaurantDetails.coordinates === undefined) ? 
+                                    null : 
+                                    ((this.state.nearestBikeStation < 0) ? 
+                                        (<h3>placeholder text (bike share toronto)</h3>) : 
+                                        (this.getDirections(this.state.restaurantDetails.coordinates.latitude, this.state.restaurantDetails.coordinates.longitude, this.props.bikeStations[this.state.nearestBikeStation].latitude, this.props.bikeStations[this.state.nearestBikeStation].longitude))
+                                    )
+                                
+                            } */}
                         </div>
                     </div>
 

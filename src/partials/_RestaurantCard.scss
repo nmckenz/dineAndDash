@@ -33,7 +33,7 @@
     text-align: center;
 
     form {
-        height: 25px;
+        height: 40px;
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
@@ -42,6 +42,18 @@
     select, button {
         height: 100%;
         margin: 0 5px;
+        padding: 5px 15px;
+        border: 1px rgba($black, 0.5) solid;
+    }
+
+    button {
+        text-transform: uppercase;
+        background-color: $firstColor;
+        color: $secondColor;
+        transition: 0.3s;
+        &:hover, &:focus {
+            background-color: $thirdColor;
+        }
     }
 }
 
