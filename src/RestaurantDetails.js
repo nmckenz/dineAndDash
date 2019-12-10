@@ -373,6 +373,7 @@ class RestaurantDetails extends Component {
 
                         </div>
                         <div className="bikeInfo">
+                            <h3>Nearest Station:</h3>
                             {(this.state.nearestBikeStation >= 0) ?
                                 <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
                                 (
@@ -381,7 +382,7 @@ class RestaurantDetails extends Component {
                                     null
                                 )
                             }
-                            <h3>Directions: </h3>
+                            <h3>Directions (walking):</h3>
 
                             <ul>
                                 {(this.state.directions === undefined) ? (<p>Turn-by-turn directions are not available at this time!</p>) : (this.state.directions.map((directionObject, index) => {
