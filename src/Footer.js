@@ -12,13 +12,16 @@ class Footer extends Component {
     }
     
     componentDidMount() {
-        var scrollComponent = this;
-        document.addEventListener("scroll", function (event) {
-            scrollComponent.toggleVisibility();
-        });
-    } 
+        const scrollComponent = this;
+        document.addEventListener("scroll", scrollComponent.toggleVisibility);
+    }
+    
+    componentWillUnmount() {
+        const scrollComponent = this;
+        document.removeEventListener("scroll", scrollComponent.toggleVisibility);
+    }
 
-    toggleVisibility() {
+    toggleVisibility = () => {
         if (window.pageYOffset > 300) {
             this.setState({
                 isVisible: true
