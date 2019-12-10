@@ -240,6 +240,7 @@ class SearchResults extends Component {
                                                 <option key={index} value={cuisineType}>{cuisineObject[cuisineType]}</option>
                                             )
                                         }
+                                        return null;
                                     })}
                                 </select>
 
@@ -259,7 +260,10 @@ class SearchResults extends Component {
                         <ul>
                             {/* Render every restaurant in a RestaurantCard */}
                             {this.props.restaurants.map((singleRestaurant) => {
-                                return <RestaurantCard singleRestaurant={singleRestaurant}/>
+                                return <RestaurantCard
+                                    singleRestaurant={singleRestaurant}
+                                    key={singleRestaurant.id}
+                                    />
                             })
                             }
                         </ul>
