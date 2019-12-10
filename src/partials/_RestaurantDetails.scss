@@ -36,8 +36,11 @@
     height: 400px;
     object-fit: cover;
   }
-  .restaurantContactInfo, .restaurantReviews {
-    padding: 20px 40px 0px 40px;
+  .restaurantContactInfo, .restaurantReviews, {
+    padding: 20px 40px;
+    @include mqTablet {
+      padding: 20px 10px;
+    }
   }
   .flexContainerRestaurantDetails {
     display: flex;
@@ -57,20 +60,33 @@
     }
   }
 }
-
-.backButton {
-  position: absolute;
-  top:20px;
-  left:20px;
-  background:none;
-  border:none;
-  font-size:3rem;
-  color:$firstColor;
-  &:hover {
-    color:$thirdColor;
-  }
+.backBtnContainer {
+    .backButton {
+      display: flex;
+      align-items: center;
+      
+      position: absolute;
+      top:20px;
+      left:20px;
+      
+      background:none;
+      border:none;
+      font-size:3rem;
+      color:$firstColor;
+      &:hover {
+        color:$thirdColor;
+      }
+    }
+    .backText {
+      display: none; 
+      font-size: 1.5rem;
+      width: 100%;
+      margin-left: 10px;
+      @include mqSmallTablet {
+          display: block;
+        }
+    }
 }
-
 .reviewCard {
   border:1px solid $black;
   border-radius:10px;
@@ -105,7 +121,10 @@
 }
 
 .bikeInfo {
-  padding: 20px 40px 0px 40px;
+    padding: 20px 40px;
+      @include mqTablet {
+        padding: 20px 10px;
+      }
   p {
     padding: 10px 0px;
   }
@@ -138,6 +157,10 @@
     justify-content:center;
     position:absolute;
     width:calc(100% - 80px);
+    @include mqTablet {
+      width:calc(100% - 20px);
+
+    }
   }
   li {
     list-style:disc;
