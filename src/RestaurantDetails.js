@@ -290,9 +290,13 @@ class RestaurantDetails extends Component {
                 <div className="wrapper">
 
                     <Link to="/" aria-label="back button">
-                        <button className="backButton">
-                            <FontAwesomeIcon icon={faArrowCircleLeft}/>
-                        </button>
+
+                        <div className="backBtnContainer">
+                            <button className="backButton">
+                                <FontAwesomeIcon icon={faArrowCircleLeft}/> 
+                            <p className="backText">Return to Search Results</p>
+                            </button>
+                        </div>
                     </Link>
 
                     <div className="restaurantDetails">

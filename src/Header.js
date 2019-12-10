@@ -52,7 +52,7 @@ class Header extends Component {
                         {/* <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
-                                <p>Delicious and easy!</p>
+                                <p>Tasty and easy!</p>
                             </div>
                         </div>
                     </div>
