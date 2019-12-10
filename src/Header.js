@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+// register sweetalerts2
+import Swal from 'sweetalert2';
 
 class Header extends Component {
     constructor() {
@@ -24,9 +26,17 @@ class Header extends Component {
                             <h1>DINE AND DASH</h1>
                             <form onSubmit={(event) => {
                                     event.preventDefault();
-                                    this.props.searchFunction(this.state.userInput)
-                                    const headerRect = ReactDOM.findDOMNode(this).getBoundingClientRect()
-                                    window.scrollTo(0,headerRect.bottom)
+                                    if (this.state.userInput === '') {
+                                        Swal.fire({
+                                            confirmButtonColor: '#b20061',
+                                            text: 'No location entered. Please enter a location.',
+                                            icon: 'error'
+                                        })
+                                    } else {
+                                        this.props.searchFunction(this.state.userInput)
+                                        const headerRect = ReactDOM.findDOMNode(this).getBoundingClientRect()
+                                        window.scrollTo(0, headerRect.bottom)
+                                    }
                                 }
                                 }>
                                     <label htmlFor="searchInput" className="visuallyHidden">Enter a location</label>
@@ -42,7 +52,7 @@ class Header extends Component {
                         {/* <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
-                                <p>Lorem, ipsum.</p>
+                                <p>Delicious and easy!</p>
                             </div>
                         </div>
                     </div>
@@ -51,7 +61,7 @@ class Header extends Component {
                         {/* <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" /> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
-                                <p>Lorem, ipsum.</p>
+                                <p>Eat well and save time!</p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +70,7 @@ class Header extends Component {
                         {/* <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" /> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
-                                <p>Lorem, ipsum.</p>
+                                <p>Get out in one piece!</p>
                             </div>
                         </div>
                     </div>

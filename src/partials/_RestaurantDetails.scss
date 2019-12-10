@@ -48,6 +48,13 @@
     text-align:right;
     color:$firstColor;
   }
+  .starRating {
+    img {
+      width: auto;
+      height: 1rem;
+      object-fit: contain;
+    }
+  }
 }
 
 .backButton {
