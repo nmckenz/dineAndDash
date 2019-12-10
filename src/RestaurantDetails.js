@@ -6,6 +6,7 @@ import Flickity from 'react-flickity-component';
 // register fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import Map from './Map';
 
 class RestaurantDetails extends Component {
     constructor() {
@@ -15,8 +16,6 @@ class RestaurantDetails extends Component {
             restaurantReviews: [],
             directions: [],
             nearestBikeStation: -1,
-            map: {},
-            mapLoaded: false
         };
     };
 
@@ -46,15 +45,6 @@ class RestaurantDetails extends Component {
                 restaurantDetails: result.data
             }, () => {
                 // Once the restaurant details have been saved to state...
-                // Fit restaurant location in the map
-                const viewBox = [
-                    [result.data.coordinates.longitude - 0.0005, result.data.coordinates.latitude - 0.0005],
-                    [result.data.coordinates.longitude + 0.0005, result.data.coordinates.latitude + 0.0005]
-                ]
-                this.state.map.fitBounds(viewBox, {
-                    padding: {top: 10, bottom: 10, left: 10, right: 10},
-                    animate: false
-                });
                 // Get the closest city bikes stations if they don't already exist
                 if (this.props.bikeStations.length===0) {
                     this.props.bikesGetFunction(result.data.coordinates, this.getNearestStation);
@@ -96,70 +86,6 @@ class RestaurantDetails extends Component {
             // Tragedy! No yelp details found.
             this.yelpError();
         })
-
-
-        // importing mapbox image + functionalities
-        const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-
-        mapboxgl.accessToken = 'pk.eyJ1IjoicGllcmNlbW9yYWxlcyIsImEiOiJjazN1YjAydTkwNmRvM2xtZWo3ZXI5cm44In0.mP0xBue4E9m2CEpDI-oQBA';
-        const map = new mapboxgl.Map({
-            container: "mapContent",
-            style: "mapbox://styles/mapbox/streets-v11",
-        //   starting point in map
-        //   center: [-79.39, 43.64]
-        });
-        this.setState({
-            map: map
-        })
-
-
-        
-        map.on("load",() => {
-            map.addSource("bikes", {
-                type: "geojson",
-                data: {
-                    type: "FeatureCollection",
-                    features: []
-                }
-            })
-            map.addSource("restaurant", {
-                type: "geojson",
-                data: {
-                    type: "FeatureCollection",
-                    features: []
-                }
-            })
-            map.addLayer({
-                id: "restaurant",
-                type: "circle",
-                source: "restaurant",
-                paint: {
-                    "circle-radius": 10,
-                    "circle-color": "#350482"
-                }
-            })
-
-            map.loadImage(
-                "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
-                (error, image) => {
-                    if (error) throw error;
-                    map.addImage("bike", image);
-                    map.addLayer({
-                        id: "bikes",
-                        type: "symbol",
-                        source: "bikes",
-                        layout: {
-                        "icon-image": "bike",
-                        "icon-size": 0.1
-                        }
-                    });
-                    // The map is ready! Set state to say so
-                    this.setState({
-                        mapLoaded:true
-                    })
-                }
-            );
-        });
     //componentDidMount ends
     }
 
@@ -241,45 +167,6 @@ class RestaurantDetails extends Component {
     }
 
     render() {
-        if (this.state.mapLoaded) {
-            // Restaurant is loaded. Add its marker to the map!
-            if("coordinates" in this.state.restaurantDetails){
-                    this.state.map.getSource("restaurant").setData({
-                    type: "Point",
-                    coordinates: [
-                        this.state.restaurantDetails.coordinates.longitude,
-                        this.state.restaurantDetails.coordinates.latitude
-                    ]
-                })
-            }
-            // Bike location is loaded. Add it to the map!
-            if (this.state.nearestBikeStation >= 0){
-                this.state.map.getSource("bikes").setData({
-                    type: "Point",
-                    coordinates: [
-                        this.props.bikeStations[this.state.nearestBikeStation].longitude,
-                        this.props.bikeStations[this.state.nearestBikeStation].latitude
-                    ]
-                })
-            }
-
-            // Bike and restaurant both loaded. Zoom to fit.
-            if ("coordinates" in this.state.restaurantDetails && this.state.nearestBikeStation >= 0) {
-                const viewBox = [
-                    [
-                        this.state.restaurantDetails.coordinates.longitude,
-                        this.state.restaurantDetails.coordinates.latitude
-                    ],
-                    [
-                        this.props.bikeStations[this.state.nearestBikeStation].longitude,
-                        this.props.bikeStations[this.state.nearestBikeStation].latitude
-                    ]
-                ]
-                this.state.map.fitBounds(viewBox, {
-                    padding: {top: 50, bottom: 50, left: 50, right: 50},
-                });
-            }
-        }
 
         const flickityOptions = {
             prevNextButtons: false
@@ -386,9 +273,12 @@ class RestaurantDetails extends Component {
                     <div className="bikeDetails">
                         {/* <img src="https://via.placeholder.com/300" alt=""/> */}
                         <h2>Bikes Near You</h2>
-                        <div id="mapContent" className="mapDetail">
-
-                        </div>
+                        {/* Mapbox component */}
+                        <Map
+                            restaurantDetails={this.state.restaurantDetails}
+                            nearestBikeStation={this.state.nearestBikeStation}
+                            bikeStations={this.props.bikeStations}
+                        />
                         <div className="bikeInfo">
                             {(this.state.nearestBikeStation >= 0) ?
                                 <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
