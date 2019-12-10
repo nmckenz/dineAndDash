@@ -23,6 +23,8 @@ class App extends Component {
       cityBikesUrl: `https://api.citybik.es/v2/networks`,
       junoProxyUrl: `https://proxy.hackeryou.com`,
       loadingYelp: false,
+      yelpSearchAttempted: false,
+      failedBikeSearch: false,
       userSearchLocation: ""
     }
   }
@@ -30,7 +32,8 @@ class App extends Component {
   searchYelp = (searchLocation, sortBy='distance', categories='restaurants, All', price='1,2,3,4') => {
     this.setState({
       // Yelp data is loading...
-      loadingYelp: true
+      loadingYelp: true,
+      yelpSearchAttempted: true
     })
     // Axios call for yelp data, uses Juno proxy
     axios({
@@ -70,7 +73,13 @@ class App extends Component {
         loadingYelp: false,
         userSearchLocation: searchLocation
       })
-    })
+    }).catch(() => {
+      // Something went wrong with yelp
+      this.setState({
+        loadingYelp: false,
+        restaurants: []
+      });
+    });
   }
 
   // Performs an axios call to get all bike networks available on citybikes and store it in state
@@ -93,11 +102,27 @@ class App extends Component {
             this.findClosestBikeNetwork(getCoords, callback);
           }
         });
-      })
+      }).catch(()=> {
+        // oh no! Something went wrong
+        this.setState({
+          failedBikeSearch: true
+        });
+      });
     }
   }
 
   findClosestBikeNetwork = (coords, callback=null) => {
+
+    // check to make sure the needed information is present
+    // If it's not, quit!
+    if (this.state.networks.length<0 || typeof coords !== 'object' || !('latitude' in coords && 'longitude' in coords)) {
+      console.log("Something broke in findClosestBikeNetwork");
+      this.setState({
+        failedBikeSearch: true
+      });
+      return;
+    }
+
     const closestNetwork = {
       bestId: "",
       sqDistance: Infinity
@@ -116,6 +141,10 @@ class App extends Component {
 
     if (closestNetwork.bestId !== "") {
       this.getSpecificBikeNetwork(closestNetwork.bestId, callback);
+    } else {
+      this.setState({
+        failedBikeSearch: true
+      });
     }
   }
 
@@ -138,7 +167,12 @@ class App extends Component {
       if (callback) {
         callback();
       }
-    })
+    }).catch(()=> {
+      // something went wrong D:
+      this.setState({
+        failedBikeSearch: true
+      });
+    });
   }
 
   render(){
@@ -149,7 +183,7 @@ class App extends Component {
         {/* Home */}
         <Route
           exact path="/"
-          render = {() => <Home searchFunction={this.searchYelp} location={this.state.userSearchLocation} restaurants={this.state.restaurants} loadingYelp={this.state.loadingYelp} />}
+          render = {() => <Home searchFunction={this.searchYelp} location={this.state.userSearchLocation} restaurants={this.state.restaurants} loadingYelp={this.state.loadingYelp} searchTried={this.state.yelpSearchAttempted}/>}
         />
         {/* Restaurant details */}
         <Route
@@ -164,6 +198,7 @@ class App extends Component {
                   yelpUrl={this.state.yelpUrl}
                   yelpApiKey={this.state.yelpApiKey}
                   bikesGetFunction={this.getAllBikeNetworks}
+                  failedBikeSearch={this.state.failedBikeSearch}
                 />
               )
             }

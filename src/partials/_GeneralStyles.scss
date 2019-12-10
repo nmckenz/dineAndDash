@@ -1,5 +1,8 @@
+@import 'partials/Mixins';
+
+
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 ul, li {
@@ -28,10 +31,15 @@ p, a, input, button {
 .wrapper {
     width:80%;
     margin: 0 auto;
+    @include mqSmallTablet {
+        width: 90%;
+    }
+
 }
 
 img {
     width: 100%;
+    
 }
 
 a {

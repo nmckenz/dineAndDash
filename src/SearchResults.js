@@ -206,8 +206,14 @@ class SearchResults extends Component {
                         {(this.props.loading) ?
                             <div className="loadingOverlay">
                                 <p>Loading search results...</p>
-                            </div> :
-                            null}
+                            </div> : (
+                                (this.props.searchTried && this.props.restaurants.length===0) ? 
+                                <div className="loadingOverlay">
+                                    <p>No search results found!</p>
+                                </div> :
+                                null
+                            )
+                        }
                         <div className="resultFilters">
                             <form onSubmit={(event) => {
                                 event.preventDefault();
