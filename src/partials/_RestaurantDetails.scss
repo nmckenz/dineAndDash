@@ -28,6 +28,7 @@
 
   @include mqSmallTablet {
     width: 100%;
+    margin-top: 50px;
   }
 
   img {
@@ -105,6 +106,9 @@
 
 .bikeInfo {
   padding: 20px 40px 0px 40px;
+  p {
+    padding: 10px 0px;
+  }
 }
 
 .bikeDetails {
