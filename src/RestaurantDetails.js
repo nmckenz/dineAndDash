@@ -130,15 +130,6 @@ class RestaurantDetails extends Component {
                     features: []
                 }
             })
-            map.addLayer({
-                id: "restaurant",
-                type: "circle",
-                source: "restaurant",
-                paint: {
-                    "circle-radius": 10,
-                    "circle-color": "#350482"
-                }
-            })
             map.addSource("route", {
                 type: "geojson",
                 data: {
@@ -152,7 +143,15 @@ class RestaurantDetails extends Component {
                     features: []
                 }
             })
-
+            map.addLayer({
+                id: "restaurant",
+                type: "circle",
+                source: "restaurant",
+                paint: {
+                    "circle-radius": 10,
+                    "circle-color": "#350482"
+                }
+            })
             map.addLayer({
                 id: 'route',
                 type: 'line',
@@ -166,9 +165,6 @@ class RestaurantDetails extends Component {
                     'line-width': 8
                 }
             });
-
-
-
             map.loadImage(
                 "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
                 (error, image) => {
@@ -214,14 +210,10 @@ class RestaurantDetails extends Component {
 
             const coordinates = this.state.restaurantDetails.coordinates;
 
-
-
             const bestStation = {
                 id: -1,
                 sqDistance: Infinity
             }
-
-
 
             this.props.bikeStations.forEach((station,index) => {
                 // make sure coordinates are in the station object
@@ -233,6 +225,7 @@ class RestaurantDetails extends Component {
                     }
                 }
             });
+
             if (bestStation.id >= 0) {
                 this.setState({
                     nearestBikeStation: bestStation.id
@@ -287,6 +280,7 @@ class RestaurantDetails extends Component {
                     ]
                 })
             }
+
             // Bike location is loaded. Add it to the map!
             if (this.state.nearestBikeStation >= 0){
                 this.state.map.getSource("bikes").setData({
@@ -315,6 +309,7 @@ class RestaurantDetails extends Component {
                 });
             }
 
+            //Waypoints are loaded. Draw route layer on map
             if (this.state.waypoints.length > 0) {
                 this.state.map.getSource("route").setData({
                     type: 'Feature',
