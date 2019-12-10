@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 // register sweetalerts2
 import Swal from 'sweetalert2';
 
+// Header component
 class Header extends Component {
     constructor() {
         super();
@@ -48,8 +49,6 @@ class Header extends Component {
                 </div>
                 <div className="recommendationContainer">
                     <div className="restaurantRecommendation num1">
-                        {/* <p>restaurant #1</p> */}
-                        {/* <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
                                 <p>Tasty and easy!</p>
@@ -57,8 +56,6 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className="restaurantRecommendation num2">
-                        {/* <p>restaurant #2</p> */}
-                        {/* <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" /> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
                                 <p>Eat well and save time!</p>
@@ -66,8 +63,6 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className="restaurantRecommendation num3">
-                        {/* <p>restaurant #3</p> */}
-                        {/* <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" /> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
                                 <p>Get out in one piece!</p>
