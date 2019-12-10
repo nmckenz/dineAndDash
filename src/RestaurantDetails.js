@@ -15,6 +15,7 @@ class RestaurantDetails extends Component {
             restaurantDetails: {},
             restaurantReviews: [],
             directions: [],
+            waypoints: [],
             nearestBikeStation: -1,
             map: {},
             mapLoaded: false
@@ -108,8 +109,6 @@ class RestaurantDetails extends Component {
         const map = new mapboxgl.Map({
             container: "mapContent",
             style: "mapbox://styles/mapbox/streets-v11",
-        //   starting point in map
-        //   center: [-79.39, 43.64]
         });
         this.setState({
             map: map
@@ -132,6 +131,13 @@ class RestaurantDetails extends Component {
                     features: []
                 }
             })
+            map.addSource("route", {
+                type: "geojson",
+                data: {
+                    type: "FeatureCollection",
+                    features: []
+                }
+            })
             map.addLayer({
                 id: "restaurant",
                 type: "circle",
@@ -141,7 +147,19 @@ class RestaurantDetails extends Component {
                     "circle-color": "#350482"
                 }
             })
-
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: "route",
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#888',
+                    'line-width': 8
+                }
+            });
             map.loadImage(
                 "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
                 (error, image) => {
@@ -232,8 +250,13 @@ class RestaurantDetails extends Component {
                 access_token: `pk.eyJ1IjoibWFjaGlhdmVsbGk5OTg4IiwiYSI6ImNrM3QwdWxtcjBjd3QzYnBvcXB4dDJ4ejYifQ.QngVoflfq_NkBYKbAohhPQ`
             }
         }).then((result) => {
+            const waypointsArray = result.data.routes[0].legs[0].steps.map((directionObject) => {
+                const coordArray = [directionObject.maneuver.location[0], directionObject.maneuver.location[1]]
+                return coordArray
+            })
             this.setState({
-                directions: result.data.routes[0].legs[0].steps
+                directions: result.data.routes[0].legs[0].steps,
+                waypoints: waypointsArray
             })
         })
     }
@@ -260,6 +283,7 @@ class RestaurantDetails extends Component {
                     ]
                 })
             }
+
             // Bike location is loaded. Add it to the map!
             if (this.state.nearestBikeStation >= 0){
                 this.state.map.getSource("bikes").setData({
@@ -286,6 +310,18 @@ class RestaurantDetails extends Component {
                 this.state.map.fitBounds(viewBox, {
                     padding: {top: 50, bottom: 50, left: 50, right: 50},
                 });
+            }
+
+            //Waypoints are loaded. Draw route layer on map
+            if (this.state.waypoints.length > 0) {
+                this.state.map.getSource("route").setData({
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: this.state.waypoints
+                    }
+                })
             }
         }
 
@@ -402,6 +438,7 @@ class RestaurantDetails extends Component {
 
                         </div>
                         <div className="bikeInfo">
+                            <h3>Nearest Station:</h3>
                             {(this.state.nearestBikeStation >= 0) ?
                                 <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
                                 (
@@ -410,7 +447,7 @@ class RestaurantDetails extends Component {
                                     null
                                 )
                             }
-                            <h3>Directions: </h3>
+                            <h3>Directions (walking):</h3>
 
                             <ul>
                                 {(this.state.directions === undefined) ? (<p>Turn-by-turn directions are not available at this time!</p>) : (this.state.directions.map((directionObject, index) => {

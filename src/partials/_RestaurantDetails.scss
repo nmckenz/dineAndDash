@@ -135,6 +135,12 @@
   width: 47.5%;
   border:1px solid $black;
   border-radius:10px;
+  h3 {
+    margin: 10px 0;
+  }
+  ul, li {
+    list-style-type: decimal;
+  }
   @include mqSmallTablet {
     margin-top: 50px;
 
