@@ -46,3 +46,14 @@ a {
     color:$firstColor;
     text-decoration:none;
 }
+
+.navButton {
+    background:none;
+    border:none;
+    font-size:3rem;
+    color:$firstColor;
+    outline:none;
+    &:hover {
+        color:$thirdColor;
+    }
+}

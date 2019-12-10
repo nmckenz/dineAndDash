@@ -336,7 +336,7 @@ class RestaurantDetails extends Component {
                     <Link to="/" aria-label="back button">
 
                         <div className="backBtnContainer">
-                            <button className="backButton">
+                            <button className="navButton backButton">
                                 <FontAwesomeIcon icon={faArrowCircleLeft}/> 
                             <p className="backText">Return to Search Results</p>
                             </button>
@@ -454,13 +454,13 @@ class RestaurantDetails extends Component {
                                     if (index === (this.state.directions.length - 1)) {
                                         return (
                                             <li key={index}>
-                                                <p>{directionObject.maneuver.instruction}. Ride like the wind scofflaw!</p>
+                                                {directionObject.maneuver.instruction}. Ride like the wind scofflaw!
                                             </li>
                                         )
                                     } else {
                                         return (
                                             <li key={index}>
-                                                <p>{directionObject.maneuver.instruction}, walking {directionObject.distance} metres (approx. {directionObject.duration} seconds)</p>
+                                                {directionObject.maneuver.instruction}, walking {directionObject.distance} metres (approx. {directionObject.duration} seconds)
                                             </li>
                                         )
                                     }

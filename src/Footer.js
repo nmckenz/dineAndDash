@@ -13,7 +13,7 @@ class Footer extends Component {
     
     componentDidMount() {
         var scrollComponent = this;
-        document.addEventListener("scroll", function (e) {
+        document.addEventListener("scroll", function (event) {
             scrollComponent.toggleVisibility();
         });
     } 
@@ -46,7 +46,7 @@ class Footer extends Component {
                     </p>
                 </div>
                 {(this.state.isVisible) ?
-                <button class="scrollToTop" onClick={this.scrollToTop}>
+                <button class="navButton scrollToTop" onClick={this.scrollToTop}>
                     <FontAwesomeIcon icon={faChevronCircleUp} />
                 </button> : null}       
             </footer>
