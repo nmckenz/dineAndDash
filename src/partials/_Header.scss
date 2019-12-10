@@ -3,7 +3,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 60vh;
+    height: 57.5vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +33,7 @@
         margin-left: 15px;
         background-color: $firstColor;
         color: $secondColor;
-        transition: 0.3s;
+        transition: $transition;
         &:hover, &:focus {
             background-color: $thirdColor;
         }

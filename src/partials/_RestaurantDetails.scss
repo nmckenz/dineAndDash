@@ -22,6 +22,7 @@
   width: 47.5%;
   border:1px solid $black;
   border-radius:10px;
+  position:relative;
   img {
     width: 100%;
     height: 400px;
@@ -51,26 +52,18 @@
     height: 25px;
     width: 25px;
   }
-  &:hover a {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  a:hover {
-    color:$thirdColor;
-  }
-  p {
-    padding: 10px;
-  }
-}
-
-.reviewYelpLink {
-  position: relative;
   a {
-    opacity: 0;
-    transition: 0.6s transform ease-out, 0.6s opacity ease-in;
+    transition: 0.6s;
     display: block;
     text-align: center;
-    transform: translateX(100%);
+  }
+  &:hover a,
+  &:focus-within a {
+    color:$thirdColor;
+  }
+
+  p {
+    padding: 10px;
   }
 }
 
@@ -106,9 +99,12 @@ blockquote {
   overflow:hidden;
   text-align:center;
   margin-top:10px;
+  height:210px;
   ol {
     display:flex;
     justify-content:center;
+    position:absolute;
+    width:calc(100% - 80px);
   }
   li {
     list-style:disc;

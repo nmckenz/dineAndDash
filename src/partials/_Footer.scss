@@ -1,12 +1,13 @@
 footer {
+    height:7.5vh;
     text-align: center;
-    padding: 10px 0px;
     background: $firstColor;
     color: $white;
-
+    display:flex;
+    align-items:center;
     a {
         color: $white;
-        transition: 0.2s ease-in-out;
+        transition: $transition;
         &:hover {
             color: $thirdColor;
         }
