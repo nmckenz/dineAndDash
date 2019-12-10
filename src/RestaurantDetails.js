@@ -6,6 +6,7 @@ import Flickity from 'react-flickity-component';
 // register fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import Map from './Map.js'
 
 class RestaurantDetails extends Component {
     constructor() {
@@ -14,6 +15,7 @@ class RestaurantDetails extends Component {
             restaurantDetails: {},
             restaurantReviews: [],
             directions: [],
+            waypoints: [],
             nearestBikeStation: -1,
             map: {},
             mapLoaded: false
@@ -138,6 +140,35 @@ class RestaurantDetails extends Component {
                     "circle-color": "#350482"
                 }
             })
+            map.addSource("route", {
+                type: "geojson",
+                data: {
+                    // type: 'Feature',
+                    // properties: {},
+                    // geometry: {
+                    //     type: 'LineString',
+                    //     coordinates: this.state.waypoints
+                    // }
+                    type: "FeatureCollection",
+                    features: []
+                }
+            })
+
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: "route",
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#888',
+                    'line-width': 8
+                }
+            });
+
+
 
             map.loadImage(
                 "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
@@ -225,8 +256,13 @@ class RestaurantDetails extends Component {
             }
         }).then((result) => {
             console.log("MAPBOX nav api", result)
+            const waypointsArray = result.data.routes[0].legs[0].steps.map((directionObject) => {
+                const coordArray = [directionObject.maneuver.location[0], directionObject.maneuver.location[1]]
+                return coordArray
+            })
             this.setState({
-                directions: result.data.routes[0].legs[0].steps
+                directions: result.data.routes[0].legs[0].steps,
+                waypoints: waypointsArray
             })
         })
     }
@@ -278,6 +314,17 @@ class RestaurantDetails extends Component {
                 this.state.map.fitBounds(viewBox, {
                     padding: {top: 50, bottom: 50, left: 50, right: 50},
                 });
+            }
+
+            if (this.state.waypoints.length > 0) {
+                this.state.map.getSource("route").setData({
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: this.state.waypoints
+                    }
+                })
             }
         }
 
@@ -421,6 +468,7 @@ class RestaurantDetails extends Component {
                         </div>
                     </div>
                 </div>{/* closing tag for wrapper */}
+                {/* <Map /> */}
             </div>// closing tag for detailsContent
         )
     }
