@@ -109,8 +109,6 @@ class RestaurantDetails extends Component {
         const map = new mapboxgl.Map({
             container: "mapContent",
             style: "mapbox://styles/mapbox/streets-v11",
-        //   starting point in map
-        //   center: [-79.39, 43.64]
         });
         this.setState({
             map: map
@@ -136,12 +134,6 @@ class RestaurantDetails extends Component {
             map.addSource("route", {
                 type: "geojson",
                 data: {
-                    // type: 'Feature',
-                    // properties: {},
-                    // geometry: {
-                    //     type: 'LineString',
-                    //     coordinates: this.state.waypoints
-                    // }
                     type: "FeatureCollection",
                     features: []
                 }
