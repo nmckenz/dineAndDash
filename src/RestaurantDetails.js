@@ -6,7 +6,6 @@ import Flickity from 'react-flickity-component';
 // register fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
-import Map from './Map.js'
 
 class RestaurantDetails extends Component {
     constructor() {
@@ -468,7 +467,6 @@ class RestaurantDetails extends Component {
                         </div>
                     </div>
                 </div>{/* closing tag for wrapper */}
-                {/* <Map /> */}
             </div>// closing tag for detailsContent
         )
     }
