@@ -333,7 +333,14 @@ class RestaurantDetails extends Component {
                             
                             <div className="flexContainerRestaurantDetails">
                                 <p className="detailSub">Rating: </p>
-                                <p className="info">{this.state.restaurantDetails.rating}</p> 
+                                <div className="starRating">
+                                    {
+                                        (this.state.restaurantDetails.rating) ?
+                                        <a href={this.state.restaurantDetails.url} target="_blank" rel="noopener noreferrer">
+                                        <img src={require("./assets/stars" + this.state.restaurantDetails.rating + ".png")} alt={`Star rating of ${this.state.restaurantDetails.rating} for ${this.state.restaurantDetails.name}`} /></a>
+                                        : null
+                                    }
+                                </div>
                             </div>
 
                             <div className="flexContainerRestaurantDetails">
