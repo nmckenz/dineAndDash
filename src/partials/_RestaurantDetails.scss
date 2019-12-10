@@ -47,6 +47,9 @@
   border:1px solid $black;
   border-radius:10px;
   overflow: hidden;
+  margin:0;
+  padding:0;
+  width:100%;
   img {
     display: inline-block;
     height: 25px;
@@ -65,12 +68,6 @@
   p {
     padding: 10px;
   }
-}
-
-blockquote {
-  margin:0;
-  padding:0;
-  width:100%;
 }
 
 .nameOfUser {
