@@ -350,19 +350,19 @@ class RestaurantDetails extends Component {
 
                         <div className="restaurantContactInfo">
                             <div className="flexContainerRestaurantDetails">
-                                <p className="detailSub">Address:</p>
+                                <h3>Address:</h3>
                                 <div>{(this.state.restaurantDetails.location === undefined) ? null : this.state.restaurantDetails.location.display_address.map((addressLine, index) => {
                                     return (<p className="info" key={index}>{addressLine}</p>)})}
                                 </div>
                             </div>
 
                             <div className="flexContainerRestaurantDetails">
-                                <p className="detailSub">Phone: </p> 
+                                <h3>Phone: </h3> 
                                 <p className="info">{this.state.restaurantDetails.display_phone}</p>
                             </div>
 
                             <div className="flexContainerRestaurantDetails">
-                                <p className="detailSub">Hours:</p>
+                                <h3>Hours:</h3>
                                 <div>
                                     {(this.state.restaurantDetails.hours === undefined) ? (<p className="info">Please call</p>) : (
                                         this.state.restaurantDetails.hours[0].open.map((dayObject, index) => {
@@ -380,7 +380,7 @@ class RestaurantDetails extends Component {
                             </div>{/* closing tag for flexContainerRestaurantDetails */}
                             
                             <div className="flexContainerRestaurantDetails">
-                                <p className="detailSub">Rating: </p>
+                                <h3>Rating: </h3>
                                 <div className="starRating">
                                     {
                                         (this.state.restaurantDetails.rating) ?
@@ -392,7 +392,7 @@ class RestaurantDetails extends Component {
                             </div>
 
                             <div className="flexContainerRestaurantDetails">
-                                <p className="detailSub">Cuisine: </p>
+                                <h3>Cuisine: </h3>
                                 <p className="info">{(this.state.restaurantDetails.categories === undefined) ? null : (this.state.restaurantDetails.categories[0].title)}</p>
                             </div>
 
@@ -402,7 +402,7 @@ class RestaurantDetails extends Component {
                         <div className="restaurantReviews">
                             <div className="flexContainerRestaurantDetails">
 
-                                <p className="detailSub">Reviews:</p>
+                                <h3>Reviews:</h3>
                                 <Flickity
                                     className={'carousel'} // default ''
                                     elementType={'div'} // default 'div'
