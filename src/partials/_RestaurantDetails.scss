@@ -13,9 +13,6 @@
     text-align: center;
     padding: 20px 0px;
   }
-  .detailSub {
-    font-weight: bold;
-  }
 }
 
 
@@ -64,18 +61,9 @@
     .backButton {
       display: flex;
       align-items: center;
-      
       position: absolute;
       top:20px;
       left:20px;
-      
-      background:none;
-      border:none;
-      font-size:3rem;
-      color:$firstColor;
-      &:hover {
-        color:$thirdColor;
-      }
     }
     .backText {
       display: none; 
@@ -121,12 +109,9 @@
 }
 
 .bikeInfo {
-    padding: 20px 40px;
-      @include mqTablet {
-        padding: 20px 10px;
-      }
-  p {
-    padding: 10px 0px;
+  padding: 20px 40px;
+  @include mqTablet {
+    padding: 20px 10px;
   }
 }
 
@@ -138,12 +123,18 @@
   h3 {
     margin: 10px 0;
   }
+  p {
+    color:$firstColor;
+    margin-bottom:40px;
+  }
   ul, li {
     list-style-type: decimal;
+    font-family:$paragraphs;
+    list-style-position:inside;
+    color:$firstColor;
   }
   @include mqSmallTablet {
     margin-top: 50px;
-
     width: 100%;
   }
 }
