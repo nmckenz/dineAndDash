@@ -49,6 +49,9 @@
     }
     input {
         width: 65%;
+        &:focus {
+            box-shadow: 0px 0px 2px 2px $thirdColor;
+        }
         @include mqTablet {
             width: 100%;
             max-width:300px;
