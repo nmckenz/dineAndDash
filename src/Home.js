@@ -6,8 +6,8 @@ function Home(props) {
     return(
         <div>
             <Header searchFunction={props.searchFunction} />
-            {(props.restaurants.length > 0 || props.loadingYelp) ?
-              <SearchResults searchFunction={props.searchFunction} location={props.location} restaurants={props.restaurants} loading={props.loadingYelp} />
+            {(props.restaurants.length > 0 || props.loadingYelp || props.searchTried) ?
+              <SearchResults searchFunction={props.searchFunction} location={props.location} restaurants={props.restaurants} loading={props.loadingYelp} searchTried={props.searchTried} />
               : null}
         </div>
     );

@@ -81,7 +81,15 @@ class RestaurantDetails extends Component {
                 this.setState({
                     restaurantReviews: result.data.reviews
                 })
-            })
+            }).catch(() => {
+                // No reviews found. This isn't such a big deal. Just leave the array empty.
+                this.setState({
+                    restaurantReviews: []
+                })
+            });
+        }).catch(() => {
+            // Tragedy! No yelp details found.
+            this.yelpError();
         })
 
 
@@ -186,10 +194,13 @@ class RestaurantDetails extends Component {
 
 
             this.props.bikeStations.forEach((station,index) => {
-                const sqDistance = (station.latitude - coordinates.latitude)**2 + (station.longitude - coordinates.longitude)**2;
-                if (station.free_bikes>0 && sqDistance < bestStation.sqDistance) {
-                    bestStation.id = index;
-                    bestStation.sqDistance = sqDistance;
+                // make sure coordinates are in the station object
+                if ('latitude' in station && 'longitude' in station) {
+                    const sqDistance = (station.latitude - coordinates.latitude)**2 + (station.longitude - coordinates.longitude)**2;
+                    if (station.free_bikes>0 && sqDistance < bestStation.sqDistance) {
+                        bestStation.id = index;
+                        bestStation.sqDistance = sqDistance;
+                    }
                 }
             });
             if (bestStation.id >= 0) {
@@ -198,6 +209,15 @@ class RestaurantDetails extends Component {
                 })
             }
         }
+    }
+
+    yelpError = () => {
+        this.setState({
+            restaurantDetails: {
+                name: "Error - No Details Found!",
+                image_url: "",
+            }
+        });
     }
 
     render() {
@@ -342,7 +362,12 @@ class RestaurantDetails extends Component {
                         <div className="bikeInfo">
                             {(this.state.nearestBikeStation >= 0) ?
                                 <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
-                                null}
+                                (
+                                    (this.props.failedBikeSearch) ?
+                                    <p>No nearby bike station found!</p> :
+                                    null
+                                )
+                            }
                             <h3>placeholder text (bike share toronto)</h3>
                         </div>
                     </div>
