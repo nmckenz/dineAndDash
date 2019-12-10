@@ -10,9 +10,9 @@ class RestaurantCard extends Component {
             <li key={this.props.singleRestaurant.id}>
                 
                 {(this.props.singleRestaurant.image_url === '')
-                    ? <img src={require('./assets/imagePlaceholder.jpg')} alt={`Image of smiling cat because Yelp has not provided one for ${this.props.singleRestaurant.name}`}/>
+                    ? <img src={require('./assets/imagePlaceholder.jpg')} alt={`Smiling cat because Yelp has not provided one for ${this.props.singleRestaurant.name}`}/>
                 
-                    : <img src={this.props.singleRestaurant.image_url} alt={`Picture of ${this.props.singleRestaurant.categories[0].title} food from ${this.props.singleRestaurant.name}`}/>}
+                    : <img src={this.props.singleRestaurant.image_url} alt={`${this.props.singleRestaurant.categories[0].title} food from ${this.props.singleRestaurant.name}`}/>}
             
                 <div className="restaurantCardContent">
                     <div className="restaurantName">
