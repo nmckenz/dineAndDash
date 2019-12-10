@@ -16,13 +16,6 @@ footer {
         position: fixed;
         bottom:60px;
         right:20px;
-        background:none;
-        border:none;
-        font-size:3rem;
-        color:$firstColor;
-        &:hover {
-            color:$thirdColor;
-        }
     }
 }
 

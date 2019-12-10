@@ -49,7 +49,7 @@ class Footer extends Component {
                     </p>
                 </div>
                 {(this.state.isVisible) ?
-                <button class="scrollToTop" onClick={this.scrollToTop}>
+                <button className="navButton scrollToTop" onClick={this.scrollToTop}>
                     <FontAwesomeIcon icon={faChevronCircleUp} />
                 </button> : null}       
             </footer>
