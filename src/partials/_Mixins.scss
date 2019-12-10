@@ -1,22 +1,27 @@
 @mixin mqTablet {
   @media (max-width: 900px) { 
     @content; 
-    // fix submit button on landing page breaks at ~820px
   }
 }
 
 @mixin mqSmallTablet {
   @media (max-width: 768px) {
     @content;
-    //3 image layout in header spill out of container
-
-    //restaurantCards begin to get squished around 700px
-    // Content in restCards get crowded (decrease wrapper)
-    
-
-    // stack 
   }
 }
+
+@mixin mqLargeMobile  {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin mqMobile {
+  @media (max-width: 400px) { 
+    @content; 
+  }
+}
+
 
 @mixin mqMobile {
   @media (max-width: 400px) { 
