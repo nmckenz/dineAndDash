@@ -11,8 +11,6 @@ class Footer extends Component {
                         <a href="http://annattran.com/" target="_blank" rel="noopener noreferrer"> Anna</a>, 
                         <a href="https://piercemorales.com/" target="_blank" rel="noopener noreferrer"> Pierce</a>
                     </p>
-                    
-
                 </div>
             </footer>
         )
