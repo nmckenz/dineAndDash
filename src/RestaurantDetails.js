@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import Qs from 'qs';
 import axios from 'axios';
-import Flickity from 'react-flickity-component'
+import { Link } from 'react-router-dom';
+import Flickity from 'react-flickity-component';
+// register fontawesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 class RestaurantDetails extends Component {
     constructor() {
@@ -285,10 +289,16 @@ class RestaurantDetails extends Component {
             <div className="detailsContent">
                 <div className="wrapper">
 
+                    <Link to="/" aria-label="back button">
+                        <button className="backButton">
+                            <FontAwesomeIcon icon={faArrowCircleLeft}/>
+                        </button>
+                    </Link>
+
                     <div className="restaurantDetails">
                         <h2>{this.state.restaurantDetails.name}</h2>
                         <img src={(this.state.restaurantDetails.image_url === '') ? require('./assets/imagePlaceholder.jpg')
-                            : this.state.restaurantDetails.image_url} alt={`Image of smiling cat because Yelp has not provided one for ${this.state.restaurantDetails.name}`} />
+                            : this.state.restaurantDetails.image_url} alt={`Smiling cat because Yelp has not provided one for ${this.state.restaurantDetails.name}`} />
 
                         <div className="restaurantContactInfo">
                             <div className="flexContainerRestaurantDetails">
