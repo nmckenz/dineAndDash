@@ -36,13 +36,32 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
+        @include mqTablet {
+            height: auto;
+        }
     }
-
+    select {
+        appearance: none;
+        color: $firstColor;
+        background-image: url(../assets/chevron.svg);
+        background-color: $secondColor;
+        background-repeat: no-repeat;
+        background-position: 95%;
+        background-size: 10%;
+    }
     select, button {
         height: 100%;
         margin: 0 5px;
         padding: 5px 15px;
         border: 1px rgba($black, 0.5) solid;
+        width: 200px;
+        @include mqTablet {
+            width: 50%;
+            margin: 5px;
+        }
+        @include mqMobile {
+            width: 90%;
+        }
     }
 
     button {

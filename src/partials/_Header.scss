@@ -29,6 +29,7 @@
         height: 40px;
         padding: 5px 15px;
         border: 1px rgba($black, 0.5) solid;
+        
     }
     input {
         width: 65%;
@@ -36,6 +37,10 @@
             width: 100%;
             max-width:300px;
         }
+        @include mqMobile {
+            max-width: 200px;
+        }
+        
     }
     button {
         text-transform: uppercase;
@@ -51,6 +56,9 @@
             width: 100%;
             max-width:300px;
             margin: 5px 0px;
+        }
+        @include mqMobile {
+            max-width: 200px;
         }
     }
 }
@@ -90,7 +98,7 @@
 .innerBox {
     padding: 50px;
     border: 1px rgba($white, 0.75) solid;
-    @include mqTablet {
+    @include mqSmallTablet {
         padding: 50px 0px;
     }
 }
