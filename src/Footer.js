@@ -7,7 +7,7 @@ class Footer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            is_visible: false
+            isVisible: false
         };
     }
     
@@ -21,11 +21,11 @@ class Footer extends Component {
     toggleVisibility() {
         if (window.pageYOffset > 300) {
             this.setState({
-                is_visible: true
+                isVisible: true
             });
         } else {
             this.setState({
-                is_visible: false
+                isVisible: false
             });
         }
     }
@@ -35,7 +35,6 @@ class Footer extends Component {
     }
 
     render() {
-        const { is_visible } = this.state;
         return (
             <footer>
                 <div className="wrapper">
@@ -46,10 +45,10 @@ class Footer extends Component {
                         <a href="https://piercemorales.com/" target="_blank" rel="noopener noreferrer"> Pierce</a>
                     </p>
                 </div>
-                {is_visible && (
+                {(this.state.isVisible) ?
                 <button class="scrollToTop" onClick={this.scrollToTop}>
                     <FontAwesomeIcon icon={faChevronCircleUp} />
-                </button>)}                
+                </button> : null}       
             </footer>
         )
     }
