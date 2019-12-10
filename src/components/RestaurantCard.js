@@ -8,7 +8,7 @@ class RestaurantCard extends Component {
             <li>
                 
                 {(this.props.singleRestaurant.image_url === '')
-                    ? <img src={require('./assets/imagePlaceholder.jpg')} alt={`Smiling cat because Yelp has not provided one for ${this.props.singleRestaurant.name}`}/>
+                    ? <img src={require('../assets/imagePlaceholder.jpg')} alt={`Smiling cat because Yelp has not provided one for ${this.props.singleRestaurant.name}`}/>
                 
                     : <img src={this.props.singleRestaurant.image_url} alt={`${this.props.singleRestaurant.categories[0].title} food from ${this.props.singleRestaurant.name}`}/>}
             
@@ -19,10 +19,10 @@ class RestaurantCard extends Component {
                     </div>
                     <div className="yelpStarsAndLogo">
                         <div className="starRating">
-                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require("./assets/stars" + this.props.singleRestaurant.rating + ".png")} alt={`Star rating for ${this.props.singleRestaurant.name}`} /></a>
+                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require("../assets/stars" + this.props.singleRestaurant.rating + ".png")} alt={`Star rating for ${this.props.singleRestaurant.name}`} /></a>
                         </div>
                         <div className="yelpLogo">
-                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require('./assets/yelpLogo.png')} alt="Yelp logo" /></a>
+                            <a href={this.props.singleRestaurant.url} target="_blank" rel="noopener noreferrer"><img src={require('../assets/yelpLogo.png')} alt="Yelp logo" /></a>
                         </div>
                     </div>
                 </div>
