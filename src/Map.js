@@ -8,7 +8,7 @@ class Map extends Component {
         super();
         this.state = {
             map: {},
-            mapLoaded: false
+            mapLoaded: false,
         }
     }
 
@@ -128,23 +128,8 @@ class Map extends Component {
                 })
             }
 
-            // Bike and restaurant both loaded. Zoom to fit both.
-            if ("coordinates" in this.props.restaurantDetails && this.props.nearestBikeStation >= 0) {
-                const viewBox = [
-                    [
-                        this.props.restaurantDetails.coordinates.longitude,
-                        this.props.restaurantDetails.coordinates.latitude
-                    ],
-                    [
-                        this.props.bikeStations[this.props.nearestBikeStation].longitude,
-                        this.props.bikeStations[this.props.nearestBikeStation].latitude
-                    ]
-                ]
-                this.state.map.fitBounds(viewBox, {
-                    padding: {top: 50, bottom: 50, left: 50, right: 50},
-                });
-                // ONLY have restaurant. Zoom to fit just that
-            } else if ("coordinates" in this.props.restaurantDetails) {
+            // Have restaurant location. Zoom to fit it quickly
+            if ("coordinates" in this.props.restaurantDetails) {
                 // Fit restaurant location in the map
                 const viewBox = [
                     [
@@ -160,6 +145,24 @@ class Map extends Component {
                     padding: {top: 10, bottom: 10, left: 10, right: 10},
                     animate: false
                 });
+
+
+                // Bike and restaurant both loaded. Zoom to fit both.
+                if (this.props.nearestBikeStation >= 0) {
+                    const viewBox = [
+                        [
+                            this.props.restaurantDetails.coordinates.longitude,
+                            this.props.restaurantDetails.coordinates.latitude
+                        ],
+                        [
+                            this.props.bikeStations[this.props.nearestBikeStation].longitude,
+                            this.props.bikeStations[this.props.nearestBikeStation].latitude
+                        ]
+                    ]
+                    this.state.map.fitBounds(viewBox, {
+                        padding: {top: 50, bottom: 50, left: 50, right: 50},
+                    });
+                }
             }
 
             //Waypoints are loaded. Draw route layer on map
