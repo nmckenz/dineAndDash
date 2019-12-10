@@ -42,7 +42,7 @@ class Header extends Component {
                         {/* <img src={require("./assets/restaurantRecommendation1Placeholder.jpg")} alt=""/> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
-                                <p>Lorem, ipsum.</p>
+                                <p>Delicious and easy!</p>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@ class Header extends Component {
                         {/* <img src={require("./assets/restaurantRecommendation2Placeholder.jpg")} alt="" /> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
-                                <p>Lorem, ipsum.</p>
+                                <p>Eat well and save time!</p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ class Header extends Component {
                         {/* <img src={require("./assets/restaurantRecommendation3Placeholder.jpg")} alt="" /> */}
                         <div className="recommendationContent">
                             <div className="innerBox">
-                                <p>Lorem, ipsum.</p>
+                                <p>Get out in one piece!</p>
                             </div>
                         </div>
                     </div>
