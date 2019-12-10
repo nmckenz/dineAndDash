@@ -3,9 +3,9 @@ import './App.scss';
 import axios from 'axios';
 import Qs from 'qs';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Home from './Home';
-import RestaurantDetails from './RestaurantDetails';
-import Footer from './Footer.js';
+import Home from './components/Home';
+import RestaurantDetails from './components/RestaurantDetails';
+import Footer from './components/Footer.js';
 
 class App extends Component {
   componentDidMount(){
