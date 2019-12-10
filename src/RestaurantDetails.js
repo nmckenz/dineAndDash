@@ -9,6 +9,7 @@ class RestaurantDetails extends Component {
         this.state = {
             restaurantDetails: {},
             restaurantReviews: [],
+            directions: [],
             nearestBikeStation: -1,
             map: {},
             mapLoaded: false
@@ -110,56 +111,51 @@ class RestaurantDetails extends Component {
 
         
         map.on("load",() => {
-        map.addSource("bikes", {
-            type: "geojson",
-            data: {
-                type: "FeatureCollection",
-                features: []
-            }
-        })
-        map.addSource("restaurant", {
-            type: "geojson",
-            data: {
-                type: "FeatureCollection",
-                features: []
-            }
-        })
-        map.addLayer({
-            id: "restaurant",
-            type: "circle",
-            source: "restaurant",
-            paint: {
-                "circle-radius": 10,
-                "circle-color": "#350482"
-            }
-        })
+            map.addSource("bikes", {
+                type: "geojson",
+                data: {
+                    type: "FeatureCollection",
+                    features: []
+                }
+            })
+            map.addSource("restaurant", {
+                type: "geojson",
+                data: {
+                    type: "FeatureCollection",
+                    features: []
+                }
+            })
+            map.addLayer({
+                id: "restaurant",
+                type: "circle",
+                source: "restaurant",
+                paint: {
+                    "circle-radius": 10,
+                    "circle-color": "#350482"
+                }
+            })
 
-        map.loadImage(
-            "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
-            (error, image) => {
-                if (error) throw error;
-                map.addImage("bike", image);
-                map.addLayer({
-                    id: "bikes",
-                    type: "symbol",
-                    source: "bikes",
-                    layout: {
-                    "icon-image": "bike",
-                    "icon-size": 0.1
-                    }
-                });
-                // The map is ready! Set state to say so
-                this.setState({
-                    mapLoaded:true
-                })
-            }
-
-        );
-    });
-
-
-
-
+            map.loadImage(
+                "https://upload.wikimedia.org/wikipedia/en/e/e0/Cycling_hardtail_sil.gif",
+                (error, image) => {
+                    if (error) throw error;
+                    map.addImage("bike", image);
+                    map.addLayer({
+                        id: "bikes",
+                        type: "symbol",
+                        source: "bikes",
+                        layout: {
+                        "icon-image": "bike",
+                        "icon-size": 0.1
+                        }
+                    });
+                    // The map is ready! Set state to say so
+                    this.setState({
+                        mapLoaded:true
+                    })
+                }
+            );
+        });
     //componentDidMount ends
     }
 
@@ -206,9 +202,29 @@ class RestaurantDetails extends Component {
             if (bestStation.id >= 0) {
                 this.setState({
                     nearestBikeStation: bestStation.id
+                }, () => {
+                    this.getDirections(this.state.restaurantDetails.coordinates.latitude, this.state.restaurantDetails.coordinates.longitude, this.props.bikeStations[this.state.nearestBikeStation].latitude, this.props.bikeStations[this.state.nearestBikeStation].longitude)
                 })
             }
         }
+    }
+
+    getDirections = (restaurantLat, restaurantLong, bikeLat, bikeLong) => {
+        axios({
+            url: `https://api.mapbox.com/directions/v5/mapbox/walking/${restaurantLong},${restaurantLat};${bikeLong},${bikeLat}`,
+            method: 'GET',
+            dataResponse: 'json',
+            params: {
+                steps: true,
+                banner_instructions: true,
+                access_token: `pk.eyJ1IjoibWFjaGlhdmVsbGk5OTg4IiwiYSI6ImNrM3QwdWxtcjBjd3QzYnBvcXB4dDJ4ejYifQ.QngVoflfq_NkBYKbAohhPQ`
+            }
+        }).then((result) => {
+            console.log("MAPBOX nav api", result)
+            this.setState({
+                directions: result.data.routes[0].legs[0].steps
+            })
+        })
     }
 
     yelpError = () => {
@@ -260,9 +276,6 @@ class RestaurantDetails extends Component {
                 });
             }
         }
-        
-
-        console.log("state restaurant reviews", this.state.restaurantReviews)
 
         const flickityOptions = {
             prevNextButtons: false
@@ -368,11 +381,27 @@ class RestaurantDetails extends Component {
                                     null
                                 )
                             }
-                            <h3>placeholder text (bike share toronto)</h3>
+                            <h3>Directions: </h3>
+
+                            <ul>
+                                {(this.state.directions === undefined) ? (<p>Turn-by-turn directions are not available at this time!</p>) : (this.state.directions.map((directionObject, index) => {
+                                    if (index === (this.state.directions.length - 1)) {
+                                        return (
+                                            <li key={index}>
+                                                <p>{directionObject.maneuver.instruction}. Ride like the wind scofflaw!</p>
+                                            </li>
+                                        )
+                                    } else {
+                                        return (
+                                            <li key={index}>
+                                                <p>{directionObject.maneuver.instruction}, walking {directionObject.distance} metres (approx. {directionObject.duration} seconds)</p>
+                                            </li>
+                                        )
+                                    }
+                                }))}
+                            </ul>
                         </div>
                     </div>
-
-                    
                 </div>{/* closing tag for wrapper */}
             </div>// closing tag for detailsContent
         )
