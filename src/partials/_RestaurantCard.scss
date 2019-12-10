@@ -56,6 +56,16 @@
         background:white;
         border:1px solid $black;
         border-radius:10px;
+
+        @include mqSmallTablet {
+            width: calc((100% / 2) - 40px);
+        }
+        
+        @include mqLargeMobile {
+            width: 100%;
+        }
+
+
     }
     li > img {
         height:200px;
