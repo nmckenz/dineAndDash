@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class RestaurantCard extends Component {
     render() {
         return (
-            <li key={this.props.singleRestaurant.id}>
+            <li>
                 
                 {(this.props.singleRestaurant.image_url === '')
                     ? <img src={require('./assets/imagePlaceholder.jpg')} alt={`Smiling cat because Yelp has not provided one for ${this.props.singleRestaurant.name}`}/>

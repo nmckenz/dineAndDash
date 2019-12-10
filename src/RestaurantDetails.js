@@ -234,6 +234,7 @@ class RestaurantDetails extends Component {
                                                     <p className="info" key={index}>{days[dayObject.day]}: {this.parse24HClock(dayObject.start)} - {this.parse24HClock(dayObject.end)}</p>
                                                 )
                                             }
+                                            return null;
                                         })
                                     )
                                 }
