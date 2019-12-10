@@ -10,7 +10,7 @@ class SearchResults extends Component {
             userPriceChoice: "1,2,3,4",
             userSortBy: "distance",
             cuisineTypes: [
-                {All: "All Cuisine"},
+                {"restaurants, All": "All Cuisine"},
                 {afghani: "Afghan"},
                 {african: "African"},
                 {senegalese: "Senegalese"},
@@ -215,18 +215,25 @@ class SearchResults extends Component {
                             )
                         }
                         <div className="resultFilters">
-                            <form onSubmit={(event) => {
-                                event.preventDefault();
-                                this.props.searchFunction(this.props.location, this.state.userSortBy, this.state.userCuisineChoice, this.state.userPriceChoice)
-                            }
+                            <form
+                                autoComplete="false"
+                                onSubmit={(event) => {
+                                    event.preventDefault();
+                                    this.props.searchFunction(this.props.location, this.state.userSortBy, this.state.userCuisineChoice, this.state.userPriceChoice)
+                                }
                             }>
-                                <select value="sortSelect" onChange={this.handleChangeSortBy}>
-                                    <option value="">Sort By</option>
+                                {/* Sort selection */}
+                                <label className="visuallyHidden" htmlFor="sortSelect">Sort by</label>
+                                <select id="sortSelect" onChange={this.handleChangeSortBy}>
+                                    <option value="distance">Sort By</option>
                                     <option value="distance">Distance</option>
                                     <option value="rating">Rating</option>
                                 </select>
-                                <select value="cuisineSelect" onChange={this.handleChangeCuisine}>
-                                    <option value="">Choose a Cuisine</option>
+
+                                {/* Cuisine selection */}
+                                <label className="visuallyHidden" htmlFor="cuisineSelect">Choose a cuisine</label>
+                                <select id="cuisineSelect" onChange={this.handleChangeCuisine}>
+                                    <option value="restaurants, All">Choose a Cuisine</option>
                                     {this.state.cuisineTypes.map((cuisineObject, index) => {
                                         for (let cuisineType in cuisineObject) {
                                             return (
@@ -235,8 +242,11 @@ class SearchResults extends Component {
                                         }
                                     })}
                                 </select>
-                                <select value="priceSelect" onChange={this.handleChangePrice}>
-                                    <option value="">Choose a Price</option>
+
+                                {/* Price selection */}
+                                <label className="visuallyHidden" htmlFor="priceSelect">Choose a price</label>
+                                <select id="priceSelect" onChange={this.handleChangePrice}>
+                                    <option value="1,2,3,4">Choose a Price</option>
                                     <option value="1">$</option>
                                     <option value="1,2">$ - $$</option>
                                     <option value="1,2,3">$ - $$$</option>
