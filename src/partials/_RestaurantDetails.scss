@@ -50,6 +50,19 @@
   }
 }
 
+.backButton {
+  position: absolute;
+  top:20px;
+  left:20px;
+  background:none;
+  border:none;
+  font-size:3rem;
+  color:$firstColor;
+  &:hover {
+    color:$thirdColor;
+  }
+}
+
 .reviewCard {
   border:1px solid $black;
   border-radius:10px;
