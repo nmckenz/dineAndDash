@@ -46,14 +46,14 @@
         background-repeat: no-repeat;
         background-position: 95%;
         background-size: 10%;
-        border-radius: 5px;
+        border-radius: 0px;
     }
     select, button {
         height: 100%;
         margin: 0 5px;
         padding: 5px 15px;
         border: 1px rgba($black, 0.5) solid;
-        width: 200px;
+        width: 175px;
         @include mqTablet {
             width: 50%;
             margin: 5px;
@@ -68,6 +68,9 @@
         background-color: $firstColor;
         color: $secondColor;
         transition: 0.3s;
+        @include mqTablet {
+            height: 40px;
+        }
         &:hover, &:focus {
             background-color: $thirdColor;
         }

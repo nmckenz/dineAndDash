@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header.js';
 import SearchResults from './SearchResults.js';
 
+// Home page. Includes the header and the search results
 function Home(props) {
     return(
         <div>
