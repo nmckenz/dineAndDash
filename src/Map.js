@@ -35,6 +35,7 @@ class Map extends Component {
                     features: []
                 }
             })
+
             // Add a source for restaurant data
             map.addSource("restaurant", {
                 type: "geojson",
@@ -43,6 +44,16 @@ class Map extends Component {
                     features: []
                 }
             })
+
+            // Add a source for route data
+            map.addSource("route", {
+                type: "geojson",
+                data: {
+                    type: "FeatureCollection",
+                    features: []
+                }
+            })
+
             // Add a layer for restaurant data
             map.addLayer({
                 id: "restaurant",
@@ -53,6 +64,21 @@ class Map extends Component {
                     "circle-color": "#350482"
                 }
             })
+
+            // Add a layer for route data
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: "route",
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#888',
+                    'line-width': 8
+                }
+            });
 
             // Add a layer for bike data (but load the bike image first)
             map.loadImage(
@@ -135,6 +161,18 @@ class Map extends Component {
                     padding: {top: 10, bottom: 10, left: 10, right: 10},
                     animate: false
                 });
+            }
+
+            //Waypoints are loaded. Draw route layer on map
+            if (this.props.waypoints.length > 0) {
+                this.state.map.getSource("route").setData({
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: this.props.waypoints
+                    }
+                })
             }
         }
 

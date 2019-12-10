@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import Map from './Map';
 
+// Detailed view of a given restaurant
 class RestaurantDetails extends Component {
     constructor() {
         super();
@@ -15,6 +16,7 @@ class RestaurantDetails extends Component {
             restaurantDetails: {},
             restaurantReviews: [],
             directions: [],
+            waypoints: [],
             nearestBikeStation: -1,
         };
     };
@@ -22,6 +24,7 @@ class RestaurantDetails extends Component {
     componentDidMount() {
         window.scrollTo(0, 0);
 
+        // Call the Yelp API for restaurant details
         axios({
             url: this.props.junoProxyUrl,
             method: 'GET',
@@ -40,7 +43,7 @@ class RestaurantDetails extends Component {
                 xmlToJSON: false
             }
         }).then((result) => {
-            console.log("restaurant details yelp api result", result);
+            // Success! Save the data
             this.setState({
                 restaurantDetails: result.data
             }, () => {
@@ -54,6 +57,7 @@ class RestaurantDetails extends Component {
                     this.getNearestStation();
                 }
             })
+            // Yelp call to get reviews
             axios({
                 url: this.props.junoProxyUrl,
                 method: 'GET',
@@ -72,12 +76,12 @@ class RestaurantDetails extends Component {
                     xmlToJSON: false
                 }
             }).then((result) => {
-                console.log("restaurant reviews yelp api result", result)
+                // Success! Save the reviews.
                 this.setState({
                     restaurantReviews: result.data.reviews
-                })
+                });
             }).catch(() => {
-                // No reviews found. This isn't such a big deal. Just leave the array empty.
+                // No reviews found. This isn't catastrophic. Just leave the array empty.
                 this.setState({
                     restaurantReviews: []
                 })
@@ -90,6 +94,7 @@ class RestaurantDetails extends Component {
     }
 
 
+    // Take a time and display convert it to a human-readable string
     parse24HClock = (time) => {
         const timeArray = [...time];
         let hours = timeArray[0] + timeArray[1];
@@ -104,24 +109,24 @@ class RestaurantDetails extends Component {
         return timeString;
     }
 
+    // Given the currently available list of bike stations, find the nearest bike station
     getNearestStation = () => {
         // if all of the data is available to do the work...
         if (this.state.nearestBikeStation < 0 && 'coordinates' in this.state.restaurantDetails && this.props.bikeStations.length >0) {
 
+            // Coordinates from restaurant details
             const coordinates = this.state.restaurantDetails.coordinates;
 
-
-
+            // Keep track of the best station
             const bestStation = {
                 id: -1,
                 sqDistance: Infinity
             }
 
-
-
             this.props.bikeStations.forEach((station,index) => {
                 // make sure coordinates are in the station object
                 if ('latitude' in station && 'longitude' in station) {
+                    // Find the distance, and see if it's closer than the current best case
                     const sqDistance = (station.latitude - coordinates.latitude)**2 + (station.longitude - coordinates.longitude)**2;
                     if (station.free_bikes>0 && sqDistance < bestStation.sqDistance) {
                         bestStation.id = index;
@@ -129,16 +134,20 @@ class RestaurantDetails extends Component {
                     }
                 }
             });
+            // If a best case was found...
             if (bestStation.id >= 0) {
+                // ..record it, and then...
                 this.setState({
                     nearestBikeStation: bestStation.id
                 }, () => {
+                    // ...get directions to the bike station!
                     this.getDirections(this.state.restaurantDetails.coordinates.latitude, this.state.restaurantDetails.coordinates.longitude, this.props.bikeStations[this.state.nearestBikeStation].latitude, this.props.bikeStations[this.state.nearestBikeStation].longitude)
                 })
             }
         }
     }
 
+    // MapBox query to get directions
     getDirections = (restaurantLat, restaurantLong, bikeLat, bikeLong) => {
         axios({
             url: `https://api.mapbox.com/directions/v5/mapbox/walking/${restaurantLong},${restaurantLat};${bikeLong},${bikeLat}`,
@@ -150,13 +159,18 @@ class RestaurantDetails extends Component {
                 access_token: `pk.eyJ1IjoibWFjaGlhdmVsbGk5OTg4IiwiYSI6ImNrM3QwdWxtcjBjd3QzYnBvcXB4dDJ4ejYifQ.QngVoflfq_NkBYKbAohhPQ`
             }
         }).then((result) => {
-            console.log("MAPBOX nav api", result)
+            const waypointsArray = result.data.routes[0].legs[0].steps.map((directionObject) => {
+                const coordArray = [directionObject.maneuver.location[0], directionObject.maneuver.location[1]]
+                return coordArray
+            })
             this.setState({
-                directions: result.data.routes[0].legs[0].steps
+                directions: result.data.routes[0].legs[0].steps,
+                waypoints: waypointsArray
             })
         })
     }
 
+    // Something went wrong with yelp. Oh no!
     yelpError = () => {
         this.setState({
             restaurantDetails: {
@@ -177,9 +191,13 @@ class RestaurantDetails extends Component {
                 <div className="wrapper">
 
                     <Link to="/" aria-label="back button">
-                        <button className="backButton">
-                            <FontAwesomeIcon icon={faArrowCircleLeft}/>
-                        </button>
+
+                        <div className="backBtnContainer">
+                            <button className="backButton">
+                                <FontAwesomeIcon icon={faArrowCircleLeft}/> 
+                            <p className="backText">Return to Search Results</p>
+                            </button>
+                        </div>
                     </Link>
 
                     <div className="restaurantDetails">
@@ -278,8 +296,10 @@ class RestaurantDetails extends Component {
                             restaurantDetails={this.state.restaurantDetails}
                             nearestBikeStation={this.state.nearestBikeStation}
                             bikeStations={this.props.bikeStations}
+                            waypoints={this.state.waypoints}
                         />
                         <div className="bikeInfo">
+                            <h3>Nearest Station:</h3>
                             {(this.state.nearestBikeStation >= 0) ?
                                 <p>The nearest bike station is {this.props.bikeStations[this.state.nearestBikeStation].name}</p> :
                                 (
@@ -288,7 +308,7 @@ class RestaurantDetails extends Component {
                                     null
                                 )
                             }
-                            <h3>Directions: </h3>
+                            <h3>Directions (walking):</h3>
 
                             <ul>
                                 {(this.state.directions === undefined) ? (<p>Turn-by-turn directions are not available at this time!</p>) : (this.state.directions.map((directionObject, index) => {

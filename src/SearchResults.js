@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RestaurantCard from './RestaurantCard.js';
 import ReactDOM from 'react-dom';
 
+// Component to display the search results
 class SearchResults extends Component {
     constructor() {
         super();
@@ -183,9 +184,7 @@ class SearchResults extends Component {
     }
 
     handleChangeCuisine = (event) => {
-        // const cuisineChoice = `restaurants, ${event.target.value}`;
         this.setState({
-            // userCuisineChoice: cuisineChoice
             userCuisineChoice: event.target.value
         })
     }
@@ -214,6 +213,7 @@ class SearchResults extends Component {
                                 null
                             )
                         }
+                        {/* Search filtering starts here */}
                         <div className="resultFilters">
                             <form
                                 autoComplete="false"
@@ -255,7 +255,9 @@ class SearchResults extends Component {
                                 <button type="submit">Filter</button>
                             </form>
                         </div>
+                        {/* Search filtering ends */}
                         <ul>
+                            {/* Render every restaurant in a RestaurantCard */}
                             {this.props.restaurants.map((singleRestaurant) => {
                                 return <RestaurantCard singleRestaurant={singleRestaurant}/>
                             })
