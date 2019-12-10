@@ -206,7 +206,7 @@ class RestaurantDetails extends Component {
 
                     <div className="restaurantDetails">
                         <h2>{this.state.restaurantDetails.name}</h2>
-                        <img src={(this.state.restaurantDetails.image_url === '') ? require('./assets/imagePlaceholder.jpg')
+                        <img src={(this.state.restaurantDetails.image_url === '') ? require('../assets/imagePlaceholder.jpg')
                             : this.state.restaurantDetails.image_url} alt={`Smiling cat because Yelp has not provided one for ${this.state.restaurantDetails.name}`} />
 
                         <div className="restaurantContactInfo">
@@ -247,7 +247,7 @@ class RestaurantDetails extends Component {
                                     {
                                         (this.state.restaurantDetails.rating) ?
                                         <a href={this.state.restaurantDetails.url} target="_blank" rel="noopener noreferrer">
-                                        <img src={require("./assets/stars" + this.state.restaurantDetails.rating + ".png")} alt={`Star rating of ${this.state.restaurantDetails.rating} for ${this.state.restaurantDetails.name}`} /></a>
+                                        <img src={require("../assets/stars" + this.state.restaurantDetails.rating + ".png")} alt={`Star rating of ${this.state.restaurantDetails.rating} for ${this.state.restaurantDetails.name}`} /></a>
                                         : null
                                     }
                                 </div>
@@ -276,7 +276,7 @@ class RestaurantDetails extends Component {
                                             <blockquote cite={reviewObject.url} key={reviewObject.id} className="reviewCard">
                                                 <p>{reviewObject.text}</p>
                                                 <div className="reviewYelpLink">
-                                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer">Read more on Yelp <img src={require('./assets/yelpLogoIconOnly.png')} alt="Yelp logo" className="detailsYelpLogo"/></a>
+                                                    <a href={reviewObject.url} target="_blank" rel="noopener noreferrer">Read more on Yelp <img src={require('../assets/yelpLogoIconOnly.png')} alt="Yelp logo" className="detailsYelpLogo"/></a>
                                                 </div>
                                                 <div className="nameOfUser">
                                                     <p>- {reviewObject.user.name}</p>
