@@ -33,7 +33,7 @@
     height: 400px;
     object-fit: cover;
   }
-  .restaurantContactInfo, .restaurantReviews, {
+  .restaurantContactInfo, .restaurantReviews {
     padding: 20px 40px;
     @include mqTablet {
       padding: 20px 10px;
