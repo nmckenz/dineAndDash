@@ -1,4 +1,4 @@
-Dine and Dash
+# Dine and Dash
 
 Built using HTML, CSS, React and REST API's (Yelp, CityBikes and MapBox)
 
