@@ -1,4 +1,6 @@
-Dine and Dash: A fun app that helps users find a nearby restaurant and closest means of escaping the bill!
+Dine and Dash
+
+A fun app that helps users find a nearby restaurant and closest means of escaping the bill!
 
 Built using HTML, CSS, React and REST API's (Yelp, CityBikes and MapBox)
 
